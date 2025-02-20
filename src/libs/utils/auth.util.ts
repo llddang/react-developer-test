@@ -2,6 +2,32 @@ const idRegex = /^[a-zA-Z0-9]{4,20}$/;
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,16}$/;
 const nicknameRegex = /^[a-zA-Z가-힣0-9]{1,10}$/;
 
+export function isInvalidAuth() {
+  const token = localStorage.getItem("authToken");
+  if (!token) return true;
+
+  const tokenJson = parseJwt(token);
+  if (!tokenJson) return true;
+
+  return false;
+}
+
+export function parseJwt(token: string) {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  } catch {
+    return null;
+  }
+}
+
 export function isValidSignUpFormData(name: string, value: string) {
   switch (name) {
     case "id":

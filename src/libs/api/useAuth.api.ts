@@ -1,5 +1,5 @@
 import { authServer } from "@/libs/api/authServer.axios";
-import { SignInDto, SignUpDto } from "@/types/dto/auth.dto";
+import { SignInDto, SignInResponseDto, SignUpDto } from "@/types/dto/auth.dto";
 import { useMutation } from "@tanstack/react-query";
 
 export function useSignUpMutate() {
@@ -13,7 +13,16 @@ export function useSignUpMutate() {
 export function useSignInMutate() {
   return useMutation({
     mutationFn: async (signInData: SignInDto) => {
-      await authServer.post("/login", signInData);
+      const response = await authServer.post<SignInResponseDto>(
+        "/login",
+        signInData
+      );
+      const { success: isAuth, nickname, userId, avatar } = response.data;
+      localStorage.setItem("authToken", response.data.accessToken);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ isAuth, nickname, userId, avatar })
+      );
     },
   });
 }
