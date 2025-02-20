@@ -4,8 +4,12 @@ import {
   isValidSignInFormData,
 } from "@/libs/utils/auth.util";
 import { SignInDto } from "@/types/dto/auth.dto";
+import { useSignInMutate } from "@/libs/api/useAuth.api";
+import { useNavigate } from "react-router-dom";
 
 export default function useSignInForm() {
+  const { mutate: signIn } = useSignInMutate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<SignInDto>({
     id: "",
     password: "",
@@ -45,7 +49,15 @@ export default function useSignInForm() {
     e.preventDefault();
     if (isInvalidFormData()) return;
 
-    // TODO: API 연결
+    signIn(formData, {
+      onSuccess: () => {
+        alert("로그인 성공");
+        navigate("/");
+      },
+      onError: (e) => {
+        alert(e.message);
+      },
+    });
   }
 
   return {

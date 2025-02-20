@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSignUpMutate } from "@/libs/api/useAuth.api";
 import {
   getSignUpErrorMessage,
   isValidSignUpFormData,
@@ -6,12 +8,13 @@ import {
 import { SignUpDto } from "@/types/dto/auth.dto";
 
 export default function useSignUpForm() {
+  const { mutate: signUp } = useSignUpMutate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<SignUpDto>({
     id: "",
     password: "",
     nickname: "",
   });
-
   const [errorMessage, setErrorMessage] = useState<SignUpDto>({
     id: "",
     password: "",
@@ -47,7 +50,15 @@ export default function useSignUpForm() {
     e.preventDefault();
     if (isInvalidFormData()) return;
 
-    // TODO: API 연결
+    signUp(formData, {
+      onSuccess: () => {
+        alert("회원가입 성공");
+        navigate("/sign-in");
+      },
+      onError: (e) => {
+        alert(e.message);
+      },
+    });
   }
 
   return {
