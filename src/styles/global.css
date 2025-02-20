@@ -10,6 +10,7 @@
     --primary-color: #ff5a5f;
     --secondary-color: #00a699;
     --text-color: #333;
+    --caption-color: #71717b;
     --background-color: #f7f7f7;
   }
 
@@ -21,6 +22,7 @@
 
 @theme {
   --color-text: var(--text-color);
+  --color-caption: var(--caption-color);
   --color-primary: var(--primary-color);
   --color-secondary: var(--secondary-color);
   --color-background: var(--background-color);
