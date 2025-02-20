@@ -1,47 +1,47 @@
 import Button from "@/components/commons/Button";
-import SignUpInput from "@/components/features/auth/SignUpInput";
+import AuthInput from "@/components/features/auth/AuthInput";
 import useSignUpForm from "@/libs/hooks/useSignUpForm";
 
 export default function SignUpForm() {
   const {
     formData,
     errorMessage,
-    changeHandler,
-    focusOutHandler,
-    submitHandler,
+    onChangeHandler,
+    onBlurHandler,
+    onSubmitHandler,
   } = useSignUpForm();
 
   return (
     <form
-      onSubmit={submitHandler}
+      onSubmit={onSubmitHandler}
       className="space-y-4 bg-gray-50 p-4 rounded-lg shadow-md"
     >
-      <SignUpInput
+      <AuthInput
         type="text"
         name="id"
         value={formData.id}
-        onChange={changeHandler}
-        onBlur={focusOutHandler}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
         placeholder="아이디"
         autoComplete="username"
         errorMessage={errorMessage.id}
       />
-      <SignUpInput
+      <AuthInput
         type="password"
         name="password"
         value={formData.password}
-        onChange={changeHandler}
-        onBlur={focusOutHandler}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
         placeholder="비밀번호"
         autoComplete="new-password"
         errorMessage={errorMessage.password}
       />
-      <SignUpInput
+      <AuthInput
         type="text"
         name="nickname"
         value={formData.nickname}
-        onChange={changeHandler}
-        onBlur={focusOutHandler}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
         placeholder="닉네임"
         errorMessage={errorMessage.nickname}
       />

@@ -1,15 +1,15 @@
 import Input from "@/components/commons/Input";
 import React from "react";
 
-interface SignUpInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-export default function SignUpInput({
+export default function AuthInput({
   type,
   errorMessage,
   ...props
-}: SignUpInputProps) {
+}: AuthInputProps) {
   return (
     <div>
       <Input

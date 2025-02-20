@@ -1,21 +1,19 @@
 import { useState } from "react";
 import {
-  getSignUpErrorMessage,
-  isValidSignUpFormData,
+  getSignInErrorMessage,
+  isValidSignInFormData,
 } from "@/libs/utils/auth.util";
-import { SignUpDto } from "@/types/dto/auth.dto";
+import { SignInDto } from "@/types/dto/auth.dto";
 
-export default function useSignUpForm() {
-  const [formData, setFormData] = useState<SignUpDto>({
+export default function useSignInForm() {
+  const [formData, setFormData] = useState<SignInDto>({
     id: "",
     password: "",
-    nickname: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState<SignUpDto>({
+  const [errorMessage, setErrorMessage] = useState<SignInDto>({
     id: "",
     password: "",
-    nickname: "",
   });
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,18 +24,18 @@ export default function useSignUpForm() {
   function onBlurHandler(e: React.FocusEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
-    if (isValidSignUpFormData(name, value))
+    if (isValidSignInFormData(name, value))
       return setErrorMessage((prev) => ({ ...prev, [name]: "" }));
 
-    const errorMsg = getSignUpErrorMessage(name);
+    const errorMsg = getSignInErrorMessage(name);
     return setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
   }
 
   function isInvalidFormData() {
     return Object.entries(formData).some(([name, value]) => {
-      if (isValidSignUpFormData(name, value)) return false;
+      if (isValidSignInFormData(name, value)) return false;
 
-      const errorMsg = getSignUpErrorMessage(name);
+      const errorMsg = getSignInErrorMessage(name);
       setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
       return true;
     });
