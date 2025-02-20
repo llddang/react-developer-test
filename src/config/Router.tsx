@@ -1,15 +1,12 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import RootLayout from "@/components/layouts/RootLayout";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const publicRoute = [
-  { path: "/", element: <>home</> },
   {
     path: "/",
-    element: (
-      <>
-        authLayout <Outlet />
-      </>
-    ),
+    element: <RootLayout />,
     children: [
+      { path: "", element: <>home</> },
       { path: "sign-in", element: <>sign-in</> },
       { path: "sign-up", element: <>sign-up</> },
     ],
