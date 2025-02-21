@@ -5,6 +5,8 @@ import ProfilePage from "@/pages/ProfilePage";
 import SignInPage from "@/pages/SignInPage";
 import SignUpPage from "@/pages/SignUpPage";
 import HomePage from "@/pages/HomePage";
+import TestPage from "@/pages/TestPage";
+import ResultPage from "@/pages/ResultPage";
 
 const publicRoute = [
   {
@@ -26,7 +28,11 @@ const protectedRoute = [
       {
         path: "",
         element: <RootLayout />,
-        children: [{ path: "profile", element: <ProfilePage /> }],
+        children: [
+          { path: "profile", element: <ProfilePage /> },
+          { path: "test", element: <TestPage /> },
+          { path: "result", element: <ResultPage /> },
+        ],
       },
     ],
   },
