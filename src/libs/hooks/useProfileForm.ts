@@ -12,6 +12,7 @@ export default function useProfileForm() {
   const { mutate: updateProfile } = useProfileMutate();
   const previousFormData = useRef<ProfileDto>({ nickname: "", avatar: "" });
 
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<ProfileDto>({
     nickname: "",
     avatar: "",
@@ -37,6 +38,7 @@ export default function useProfileForm() {
         if (!file) return;
         if (file.size >= (1024 * 1024) / 2)
           return alert("500KB 이하의 파일만 넣을 수 있습니다. ");
+        setAvatarFile(file);
         const reader = new FileReader();
         reader.onloadend = () => {
           setFormData((prev) => ({
@@ -73,14 +75,17 @@ export default function useProfileForm() {
 
     if (isInvalidFormData()) return;
 
-    updateProfile(formData, {
-      onSuccess: () => {
-        alert("프로필이 갱신되었습니다!");
-      },
-      onError: (err) => {
-        alert(err.message);
-      },
-    });
+    updateProfile(
+      { avatar: avatarFile, nickname: formData.nickname },
+      {
+        onSuccess: () => {
+          alert("프로필이 갱신되었습니다!");
+        },
+        onError: (err) => {
+          alert(err.message);
+        },
+      }
+    );
   }
 
   useEffect(() => {
