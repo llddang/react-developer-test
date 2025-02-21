@@ -1,15 +1,10 @@
-import { Link } from "react-router-dom";
+import StyledLink from "@/components/commons/StyledLink";
 
 export default function SignInCaption() {
   return (
-    <p className="text-caption text-center">
+    <p className="text-caption text-center [&_a]:ml-2">
       계정이 없으신가요?
-      <Link
-        to="/sign-up"
-        className="text-primary underline-offset-4 hover:underline ml-2"
-      >
-        회원가입
-      </Link>
+      <StyledLink to="/sign-up">회원가입</StyledLink>
     </p>
   );
 }
