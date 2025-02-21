@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useLocation } from "react-router-dom";
 
 export default function ResultPage() {
