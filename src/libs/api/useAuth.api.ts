@@ -5,6 +5,7 @@ import { useTokenStore } from "@/stores/token.store";
 import { useUserStore } from "@/stores/user.store";
 import {
   ProfileDto,
+  ProfileRequestDto,
   SignInDto,
   SignInResponseDto,
   SignUpDto,
@@ -52,7 +53,7 @@ export function useProfileQuery() {
 
 export function useProfileMutate() {
   return useMutation({
-    mutationFn: async (profileData: ProfileDto): Promise<ProfileDto> => {
+    mutationFn: async (profileData: ProfileRequestDto): Promise<ProfileDto> => {
       const formData = new FormData();
       if (profileData.avatar) formData.append("avatar", profileData.avatar);
       formData.append("nickname", profileData.nickname);
