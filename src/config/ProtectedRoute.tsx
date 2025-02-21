@@ -1,13 +1,13 @@
-import { isInvalidAuth } from "@/libs/utils/auth.util";
+import { useTokenStore } from "@/stores/token.store";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute() {
   const { pathname } = useLocation();
+  const isAuth = useTokenStore().isValidToken();
 
-  if (isInvalidAuth())
-    return (
-      <Navigate to="/sign-in" replace state={{ redirectedFrom: pathname }} />
-    );
+  if (isAuth) return <Outlet />;
 
-  return <Outlet />;
+  return (
+    <Navigate to="/sign-in" replace state={{ redirectedFrom: pathname }} />
+  );
 }

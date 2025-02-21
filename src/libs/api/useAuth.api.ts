@@ -1,6 +1,8 @@
 import { QueryKeys } from "@/constants/query-key.constant";
 import { authServer } from "@/libs/api/authServer.axios";
 import { queryClient } from "@/main";
+import { useTokenStore } from "@/stores/token.store";
+import { useUserStore } from "@/stores/user.store";
 import {
   ProfileDto,
   SignInDto,
@@ -19,6 +21,9 @@ export function useSignUpMutate() {
 }
 
 export function useSignInMutate() {
+  const setUserInfo = useUserStore().setUserInfo;
+  const setToken = useTokenStore().setToken;
+
   return useMutation({
     mutationFn: async (signInData: SignInDto) => {
       const response = await authServer.post<SignInResponseDto>(
@@ -29,8 +34,8 @@ export function useSignInMutate() {
     },
     onSuccess: (response) => {
       const { accessToken, ...auth } = response;
-      localStorage.setItem("authToken", accessToken);
-      localStorage.setItem("user", JSON.stringify(auth));
+      setToken(accessToken);
+      setUserInfo({ ...auth, isAuth: auth.success });
     },
   });
 }
