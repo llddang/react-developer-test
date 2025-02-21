@@ -9,6 +9,11 @@ export interface SignInDto {
   password: string;
 }
 
+export interface ProfileRequestDto {
+  avatar: File | null;
+  nickname: string;
+}
+
 export interface ProfileDto {
   nickname: string;
   avatar: string | null;
