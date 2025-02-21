@@ -9,17 +9,16 @@ export interface SignInDto {
   password: string;
 }
 
-export interface UserDto {
-  userId: string;
-  isAuth: boolean;
+export interface ProfileDto {
   nickname: string;
-  avatar: null | string;
+  avatar: string | null;
 }
 
-export interface SignInResponseDto {
-  accessToken: string;
-  avatar: null | string;
-  nickname: string;
-  success: boolean;
+export interface UserDto extends ProfileDto {
   userId: string;
+  success: boolean;
+}
+
+export interface SignInResponseDto extends UserDto {
+  accessToken: string;
 }

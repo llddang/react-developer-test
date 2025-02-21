@@ -9,7 +9,7 @@ export function isInvalidAuth() {
   const tokenJson = parseJwt(token);
   if (!tokenJson) return true;
 
-  return false;
+  return tokenJson.exp <= Math.floor(Date.now() / 1000);
 }
 
 export function parseJwt(token: string) {
@@ -28,7 +28,7 @@ export function parseJwt(token: string) {
   }
 }
 
-export function isValidSignUpFormData(name: string, value: string) {
+export function isValidUserField(name: string, value: string) {
   switch (name) {
     case "id":
       return idRegex.test(value);
@@ -41,7 +41,7 @@ export function isValidSignUpFormData(name: string, value: string) {
   }
 }
 
-export function getSignUpErrorMessage(name: string) {
+export function getUserErrorMessage(name: string) {
   switch (name) {
     case "id":
       return "아이디는 영문 또는 숫자로 4자에서 20자 이내로 입력해주세요.";
@@ -49,28 +49,6 @@ export function getSignUpErrorMessage(name: string) {
       return "비밀번호는 영문, 숫자를 포함하여 6자에서 16자 이내로 입력해주세요.";
     case "nickname":
       return "닉네임은 영문 또는 한글, 숫자로 1자에서 10자 이내로 입력해주세요.";
-    default:
-      return "";
-  }
-}
-
-export function isValidSignInFormData(name: string, value: string) {
-  switch (name) {
-    case "id":
-      return value !== "";
-    case "password":
-      return value !== "";
-    default:
-      return true;
-  }
-}
-
-export function getSignInErrorMessage(name: string) {
-  switch (name) {
-    case "id":
-      return "아이디를 입력해주세요.";
-    case "password":
-      return "비밀번호를 입력해주세요.";
     default:
       return "";
   }
