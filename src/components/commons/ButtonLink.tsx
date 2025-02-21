@@ -1,16 +1,18 @@
 import { buttonVariants } from "@/styles/button.cva";
 import { VariantProps } from "class-variance-authority";
+import { Link, LinkProps } from "react-router-dom";
 
-type ButtonProps = VariantProps<typeof buttonVariants> &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
-export default function Button({
+type ButtonLinkProps = VariantProps<typeof buttonVariants> & LinkProps;
+export default function ButtonLink({
   variant,
   size,
   className,
+  to,
   ...props
-}: ButtonProps) {
+}: ButtonLinkProps) {
   return (
-    <button
+    <Link
+      to={to}
       className={buttonVariants({ variant, size, className })}
       {...props}
     />
