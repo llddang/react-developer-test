@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignUpMutate } from "@/libs/api/useAuth.api";
-import {
-  getSignUpErrorMessage,
-  isValidSignUpFormData,
-} from "@/libs/utils/auth.util";
+import { isValidUserField, getUserErrorMessage } from "@/libs/utils/auth.util";
 import { SignUpDto } from "@/types/dto/auth.dto";
 
 export default function useSignUpForm() {
@@ -29,18 +26,18 @@ export default function useSignUpForm() {
   function onBlurHandler(e: React.FocusEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
-    if (isValidSignUpFormData(name, value))
+    if (isValidUserField(name, value))
       return setErrorMessage((prev) => ({ ...prev, [name]: "" }));
 
-    const errorMsg = getSignUpErrorMessage(name);
+    const errorMsg = getUserErrorMessage(name);
     return setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
   }
 
   function isInvalidFormData() {
     return Object.entries(formData).some(([name, value]) => {
-      if (isValidSignUpFormData(name, value)) return false;
+      if (isValidUserField(name, value)) return false;
 
-      const errorMsg = getSignUpErrorMessage(name);
+      const errorMsg = getUserErrorMessage(name);
       setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
       return true;
     });

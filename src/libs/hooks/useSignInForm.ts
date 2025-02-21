@@ -1,11 +1,7 @@
 import { useState } from "react";
-import {
-  getSignInErrorMessage,
-  isValidSignInFormData,
-} from "@/libs/utils/auth.util";
-import { SignInDto } from "@/types/dto/auth.dto";
-import { useSignInMutate } from "@/libs/api/useAuth.api";
 import { useNavigate } from "react-router-dom";
+import { useSignInMutate } from "@/libs/api/useAuth.api";
+import { SignInDto } from "@/types/dto/auth.dto";
 
 export default function useSignInForm() {
   const { mutate: signIn } = useSignInMutate();
@@ -25,21 +21,12 @@ export default function useSignInForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function onBlurHandler(e: React.FocusEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-
-    if (isValidSignInFormData(name, value))
-      return setErrorMessage((prev) => ({ ...prev, [name]: "" }));
-
-    const errorMsg = getSignInErrorMessage(name);
-    return setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
-  }
-
   function isInvalidFormData() {
     return Object.entries(formData).some(([name, value]) => {
-      if (isValidSignInFormData(name, value)) return false;
+      if (value !== "") return false;
 
-      const errorMsg = getSignInErrorMessage(name);
+      const errorMsg =
+        name === "id" ? "아이디를 입력해주세요." : "비밀번호를 입력해주세요";
       setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
       return true;
     });
@@ -64,7 +51,6 @@ export default function useSignInForm() {
     formData,
     errorMessage,
     onChangeHandler,
-    onBlurHandler,
     onSubmitHandler,
   };
 }
