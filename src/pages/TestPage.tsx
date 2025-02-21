@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Button from "@/components/commons/Button";
-import { initialQuestion, questions } from "@/data/questions.data";
-import { getAfterWidth } from "@/libs/utils/question.utils";
-import { QuestionDto } from "@/types/dto/question.dto";
 import { useNavigate } from "react-router-dom";
+import Button from "@/components/commons/Button";
+import TestProgress from "@/components/features/test/TestProgress";
+import { initialQuestion, questions } from "@/data/questions.data";
+import { QuestionDto } from "@/types/dto/question.dto";
 
 export default function TestPage() {
   const [questionId, setQuestionId] = useState(1);
@@ -12,31 +12,26 @@ export default function TestPage() {
 
   const navigate = useNavigate();
 
-  function handleAnswerClick(type: string) {
+  function handleAnswerClick(e: React.MouseEvent<HTMLButtonElement>) {
+    const { type } = e.currentTarget.dataset;
+    if (!type) return;
+
     if (questionId >= 15) return navigate("/result", { state: { answers } });
 
     setQuestionId((prev) => prev + 1);
-    switch (type) {
-      case "E":
-        return setAnswers((prev) => ({ ...prev, EI: prev.EI + 1 }));
-      case "I":
-        return setAnswers((prev) => ({ ...prev, EI: prev.EI - 1 }));
-      case "T":
-        return setAnswers((prev) => ({ ...prev, TF: prev.TF + 1 }));
-      case "F":
-        return setAnswers((prev) => ({ ...prev, TF: prev.TF - 1 }));
-      case "J":
-        return setAnswers((prev) => ({ ...prev, JP: prev.JP + 1 }));
-      case "P":
-        return setAnswers((prev) => ({ ...prev, JP: prev.JP - 1 }));
-      default:
-        return;
-    }
+
+    if (type === "E") setAnswers((prev) => ({ ...prev, EI: prev.EI + 1 }));
+    else if (type === "I") setAnswers((prev) => ({ ...prev, EI: prev.EI - 1 }));
+    else if (type === "T") setAnswers((prev) => ({ ...prev, TF: prev.TF + 1 }));
+    else if (type === "F") setAnswers((prev) => ({ ...prev, TF: prev.TF - 1 }));
+    else if (type === "J") setAnswers((prev) => ({ ...prev, JP: prev.JP + 1 }));
+    else if (type === "P") setAnswers((prev) => ({ ...prev, JP: prev.JP - 1 }));
   }
 
   useEffect(() => {
     const question = questions.find((q) => q.id === questionId);
     if (!question) return;
+
     setQuestion(question);
   }, [questionId]);
 
@@ -45,32 +40,21 @@ export default function TestPage() {
       <h3 className="text-lg font-semibold mb-8">{question.question}</h3>
       <Button
         variant="outline"
-        onClick={() => handleAnswerClick(question.A.type)}
+        data-type={question.A.type}
+        onClick={handleAnswerClick}
         className="w-full mb-4 text-text"
       >
         {question.A.answer}
       </Button>
       <Button
         variant="outline"
-        onClick={() => handleAnswerClick(question.B.type)}
+        data-type={question.B.type}
+        onClick={handleAnswerClick}
         className="w-full mb-8 text-text"
       >
         {question.B.answer}
       </Button>
-      <div
-        className={`relative mx-4 h-4 rounded-2xl bg-primary/20 border border-primary/50 after:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:bg-primary/50 after:rounded-2xl 
-          ${getAfterWidth(questionId)}`}
-      >
-        <p
-          className="absolute top-1/2 -translate-1/2 z-1"
-          style={{ left: `${(questionId / 15) * 100}%` }}
-        >
-          💻
-        </p>
-      </div>
-      <p className="text-center">
-        <b className="text-lg">{questionId}</b> / 15
-      </p>
+      <TestProgress progress={questionId} />
     </div>
   );
 }
