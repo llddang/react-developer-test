@@ -2,16 +2,6 @@ const idRegex = /^[a-zA-Z0-9]{4,20}$/;
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,16}$/;
 const nicknameRegex = /^[a-zA-Z가-힣0-9]{1,10}$/;
 
-export function isInvalidAuth() {
-  const token = localStorage.getItem("authToken");
-  if (!token) return true;
-
-  const tokenJson = parseJwt(token);
-  if (!tokenJson) return true;
-
-  return tokenJson.exp <= Math.floor(Date.now() / 1000);
-}
-
 export function parseJwt(token: string) {
   try {
     const base64Url = token.split(".")[1];

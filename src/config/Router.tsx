@@ -1,16 +1,16 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "@/components/layouts/RootLayout";
 import ProtectedRoute from "@/config/ProtectedRoute";
 import ProfilePage from "@/pages/ProfilePage";
 import SignInPage from "@/pages/SignInPage";
 import SignUpPage from "@/pages/SignUpPage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const publicRoute = [
   {
     path: "/",
     element: <RootLayout />,
     children: [
-      { path: "", element: <ProtectedRoute /> },
+      { path: "", element: <>home</> },
       { path: "sign-in", element: <SignInPage /> },
       { path: "sign-up", element: <SignUpPage /> },
     ],
