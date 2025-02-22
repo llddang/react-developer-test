@@ -1,10 +1,10 @@
+import { useParams } from "react-router-dom";
 import Button from "@/components/commons/Button";
 import ButtonLink from "@/components/commons/ButtonLink";
-import ResultMatchCard from "@/components/features/developer-test/ResultMatchCard";
-import ResultMyTypeCard from "@/components/features/developer-test/ResultMyTypeCard";
-import { developerTypes } from "@/data/developer-type.data";
+import ResultDetailMatchCard from "@/components/features/developer-test/ResultDetailMatchCard";
+import ResultDetailMyTypeCard from "@/components/features/developer-test/ResultDetailMyTypeCard";
 import { isValidDeveloperTypeId } from "@/libs/utils/developer-test.utils";
-import { useParams } from "react-router-dom";
+import { developerTypes } from "@/data/developer-type.data";
 
 export default function ResultDetailPage() {
   const { type } = useParams();
@@ -24,18 +24,18 @@ export default function ResultDetailPage() {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
       <h3 className="text-2xl font-semibold">{developerType.name} 개발자</h3>
-      <ResultMyTypeCard
+      <ResultDetailMyTypeCard
         name={developerType.name}
         img={developerType.img}
         description={developerType.description}
       />
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 items-end justify-items-center">
-        <ResultMatchCard
+        <ResultDetailMatchCard
           matchTitle="나의 짝꿍"
           name={developerType.goodMatch.name}
           img={developerType.goodMatch.img}
         />
-        <ResultMatchCard
+        <ResultDetailMatchCard
           matchTitle="나와 상극"
           name={developerType.badMatch.name}
           img={developerType.badMatch.img}
