@@ -1,6 +1,6 @@
-import { DeveloperType, DeveloperTypeId } from "@/types/devleoper.type";
+import { DeveloperTypeCollectionDto } from "@/types/developer-test.type";
 
-export const developerTypes: Record<DeveloperTypeId, DeveloperType> = {
+export const developerTypes: DeveloperTypeCollectionDto = {
   ITJ: {
     name: "체계적인 거북이",
     description: [

@@ -1,5 +1,10 @@
-import { developerTypes } from "@/data/developer-type.data";
-import { DeveloperType, DeveloperTypeId } from "@/types/devleoper.type";
+import {
+  DEVELOPER_TYPE,
+  DeveloperTypeId,
+  PERSONALITY_TYPE,
+  PersonalityTypeId,
+  PersonalityTypeScoresDto,
+} from "@/types/developer-test.type";
 
 /**
  * 진행 상태에 따른 너비 클래스를 반환하는 함수
@@ -38,20 +43,34 @@ export function getAfterWidth(progress: number) {
  * @param EI - 외향(E)/내향(I) 성향 점수. 양수면 외향(E), 음수면 내향(I)
  * @param TF - 사고(T)/감정(F) 성향 점수. 양수면 사고(T), 음수면 감정(F)
  * @param JP - 판단(J)/인식(P) 성향 점수. 양수면 판단(J), 음수면 인식(P)
- * @returns 해당하는 개발자 유형 객체
+ * @returns DeveloperTypeId - 해당하는 개발자 유형 ID
  *
  * @example
- * const devType = calculateDeveloperType(-5, 10, 3); // ITJ 유형 반환
+ * const devTypeId = calculateDeveloperType(-5, 10, 3); ITJ 반환
  */
-export function calculateDeveloperType(
-  EI: number,
-  TF: number,
-  JP: number
-): DeveloperType {
+export function calculateDeveloperType(answers: PersonalityTypeScoresDto): DeveloperTypeId {
   const type =
-    (EI > 0 ? "E" : "I") + (TF > 0 ? "T" : "F") + (JP > 0 ? "J" : "P");
+    (answers.E > answers.I ? "E" : "I") +
+    (answers.T > answers.F ? "T" : "F") +
+    (answers.J > answers.P ? "J" : "P");
 
-  const typeId = type as DeveloperTypeId;
+  return type as DeveloperTypeId;
+}
 
-  return developerTypes[typeId];
+/**
+ * 입력된 값이 AnswerType의 유효한 키인지 확인하는 타입 가드 함수
+ * @param value 확인할 값
+ * @returns 값이 AnswerType의 키인지 여부
+ */
+export function isValidAnswerTypeId(value: unknown): value is PersonalityTypeId {
+  return (
+    typeof value === "string" &&
+    Object.values(PERSONALITY_TYPE).includes(value as PersonalityTypeId)
+  );
+}
+
+export function isValidDeveloperTypeId(value: unknown): value is DeveloperTypeId {
+  return (
+    typeof value === "string" && Object.values(DEVELOPER_TYPE).includes(value as DeveloperTypeId)
+  );
 }

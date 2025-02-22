@@ -1,4 +1,4 @@
-import { getAfterWidth } from "@/libs/utils/question.utils";
+import { getAfterWidth } from "@/libs/utils/developer-test.utils";
 
 export default function TestProgress({ progress }: { progress: number }) {
   return (

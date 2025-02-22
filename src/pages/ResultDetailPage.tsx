@@ -1,23 +1,20 @@
 import Button from "@/components/commons/Button";
 import ButtonLink from "@/components/commons/ButtonLink";
-import ResultMatchCard from "@/components/features/test/ResultMatchCard";
-import ResultMyTypeCard from "@/components/features/test/ResultMyTypeCard";
-import { calculateDeveloperType } from "@/libs/utils/question.utils";
-import { useLocation } from "react-router-dom";
+import ResultMatchCard from "@/components/features/developer-test/ResultMatchCard";
+import ResultMyTypeCard from "@/components/features/developer-test/ResultMyTypeCard";
+import { developerTypes } from "@/data/developer-type.data";
+import { isValidDeveloperTypeId } from "@/libs/utils/developer-test.utils";
+import { useParams } from "react-router-dom";
 
-export default function ResultPage() {
-  const location = useLocation();
-  const { answers } = location.state;
+export default function ResultDetailPage() {
+  const { type } = useParams();
+  if (!isValidDeveloperTypeId(type)) return <>찾을 수 없습니다.</>;
 
-  const developType = calculateDeveloperType(
-    answers.EI,
-    answers.TF,
-    answers.JP
-  );
+  const developerType = developerTypes[type];
 
   async function handleShareLinkClick() {
     try {
-      await navigator.clipboard.writeText("hello world");
+      await navigator.clipboard.writeText(window.location.href);
       alert("링크가 복사되었습니다.");
     } catch {
       alert("failed");
@@ -26,22 +23,22 @@ export default function ResultPage() {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h3 className="text-2xl font-semibold">{developType.name} 개발자</h3>
+      <h3 className="text-2xl font-semibold">{developerType.name} 개발자</h3>
       <ResultMyTypeCard
-        name={developType.name}
-        img={developType.img}
-        description={developType.description}
+        name={developerType.name}
+        img={developerType.img}
+        description={developerType.description}
       />
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 items-end justify-items-center">
         <ResultMatchCard
           matchTitle="나의 짝꿍"
-          name={developType.goodMatch.name}
-          img={developType.goodMatch.img}
+          name={developerType.goodMatch.name}
+          img={developerType.goodMatch.img}
         />
         <ResultMatchCard
           matchTitle="나와 상극"
-          name={developType.badMatch.name}
-          img={developType.badMatch.img}
+          name={developerType.badMatch.name}
+          img={developerType.badMatch.img}
         />
         <div className="col-span-2 md:col-span-1  w-full flex flex-wrap md:flex-col justify-center md:items-end gap-4">
           <ButtonLink to="/test" size="sm">
