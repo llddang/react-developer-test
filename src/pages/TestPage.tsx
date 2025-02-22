@@ -42,7 +42,7 @@ export default function TestPage() {
         variant="outline"
         data-type={question.A.type}
         onClick={handleAnswerClick}
-        className="w-full mb-4 text-text"
+        className="w-full mb-4 text-text text-sm sm:text-base !text-wrap !h-fit"
       >
         {question.A.answer}
       </Button>
@@ -50,7 +50,7 @@ export default function TestPage() {
         variant="outline"
         data-type={question.B.type}
         onClick={handleAnswerClick}
-        className="w-full mb-8 text-text"
+        className="w-full mb-8 text-text text-sm sm:text-base !text-wrap !h-fit"
       >
         {question.B.answer}
       </Button>
