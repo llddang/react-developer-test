@@ -1,0 +1,108 @@
+import { DeveloperType, DeveloperTypeId } from "@/types/devleoper.type";
+
+export const developerTypes: Record<DeveloperTypeId, DeveloperType> = {
+  ITJ: {
+    name: "체계적인 거북이",
+    description: [
+      "모든 세부사항에 주의를 기울이는 철저함을 갖고 있습니다",
+      "계획적이고 체계적인 방법으로 프로젝트에 접근합니다",
+      "높은 품질 기준을 가지고 코드를 작성합니다",
+      "깊이 있는 분석과 장기적 관점으로 문제를 해결합니다",
+      "안정적이고 신뢰할 수 있는 시스템을 구축하는 것을 중요시합니다",
+    ],
+    goodMatch: { name: "호기심 많은 여우", img: "/animals/fox.png" },
+    badMatch: { name: "즉흥적인 원숭이", img: "/animals/monkey.png" },
+    img: "/animals/turtle.png",
+  },
+  ITP: {
+    name: "독립적인 고양이",
+    description: [
+      "자신만의 방식으로 문제를 해결하는 독립적인 성향을 가집니다",
+      "효율성과 최적화에 큰 가치를 둡니다",
+      "깊은 집중력으로 복잡한 기술적 문제를 해결합니다",
+      "유연하게 상황에 적응하고 새로운 접근법을 찾아냅니다",
+      "불필요한 규칙과 관행에 구애받지 않는 실용주의자입니다",
+    ],
+    goodMatch: { name: "온화한 양", img: "/animals/sheep.png" },
+    badMatch: { name: "부지런한 다람쥐", img: "/animals/squirrel.png" },
+    img: "/animals/cat.png",
+  },
+  IFJ: {
+    name: "조화로운 해달",
+    description: [
+      "사용자와 팀원의 니즈를 세심하게 고려합니다",
+      "장기적인 비전과 가치에 초점을 맞춥니다",
+      "체계적으로 프로젝트를 진행하면서도 인간적인 요소를 중요시합니다",
+      "신뢰성 있고 일관된 결과물을 제공합니다",
+      "조용하지만 깊이 있는 통찰력으로 팀에 기여합니다",
+    ],
+    goodMatch: { name: "즉흥적인 원숭이", img: "/animals/monkey.png" },
+    badMatch: { name: "독립적인 고양이", img: "/animals/cat.png" },
+    img: "/animals/sea-otter.png",
+  },
+  IFP: {
+    name: "호기심 많은 여우",
+    description: [
+      "독창적인 아이디어와 직관적인 문제 해결 능력이 뛰어납니다",
+      "사용자의 감정과 경험에 깊은 공감 능력을 가지고 있습니다",
+      "유연하게 상황에 적응하며 새로운 가능성을 탐색합니다",
+      "진정성 있는 접근으로 독특한 솔루션을 만들어냅니다",
+      "세부 사항보다는 전체적인 의미와 가치를 중요시합니다",
+    ],
+    goodMatch: { name: "체계적인 거북이", img: "/animals/turtle.png" },
+    badMatch: { name: "온화한 양", img: "/animals/sheep.png" },
+    img: "/animals/fox.png",
+  },
+  ETJ: {
+    name: "온화한 양",
+    description: [
+      "명확한 목표 설정과 효율적인 실행 능력이 뛰어납니다",
+      "논리적이고 체계적인 접근으로 프로젝트를 이끕니다",
+      "결단력 있는 의사결정으로 팀의 방향을 제시합니다",
+      "책임감 있게 프로젝트를 완수하려는 강한 의지가 있습니다",
+      "직접적이고 솔직한 의사소통 스타일을 가집니다",
+    ],
+    goodMatch: { name: "호기심 많은 여우", img: "/animals/fox.png" },
+    badMatch: { name: "독립적인 고양이", img: "/animals/cat.png" },
+    img: "/animals/sheep.png",
+  },
+  ETP: {
+    name: "즉흥적인 원숭이",
+    description: [
+      "빠르게 변화하는 환경에서 뛰어난 적응력을 보입니다",
+      "실용적이고 즉각적인 해결책을 찾는데 능숙합니다",
+      "다양한 기술을 능숙하게 활용하는 다재다능함이 특징입니다",
+      "에너지 넘치는 접근으로 팀에 활력을 불어넣습니다",
+      "위기 상황에서 빠르게 대응하는 능력이 뛰어납니다",
+    ],
+    goodMatch: { name: "조화로운 해달", img: "/animals/sea-otter.png" },
+    badMatch: { name: "체계적인 거북이", img: "/animals/turtle.png" },
+    img: "/animals/monkey.png",
+  },
+  EFJ: {
+    name: "부지런한 다람쥐",
+    description: [
+      "뛰어난 의사소통 능력으로 팀원들을 연결합니다",
+      "모든 사람이 참여하고 가치를 인정받는 환경을 조성합니다",
+      "체계적으로 프로젝트를 조직하고 일정을 관리합니다",
+      "사용자와 팀의 니즈를 균형있게 고려합니다",
+      "긍정적인 에너지로 팀의 사기를 높입니다",
+    ],
+    goodMatch: { name: "독립적인 고양이", img: "/animals/cat.png" },
+    badMatch: { name: "호기심 많은 여우", img: "/animals/fox.png" },
+    img: "/animals/squirrel.png",
+  },
+  EFP: {
+    name: "친근한 코끼리",
+    description: [
+      "창의적인 아이디어와 열정적인 에너지로 프로젝트에 활기를 불어넣습니다",
+      "사용자 경험과 감성적인 디자인에 탁월한 감각을 가지고 있습니다",
+      "다양한 사람들과 쉽게 협업하고 영감을 주고받습니다",
+      "유연하게 변화에 적응하고 새로운 가능성을 탐색합니다",
+      "즐겁고 긍정적인 작업 환경을 만드는데 기여합니다",
+    ],
+    goodMatch: { name: "체계적인 거북이", img: "/animals/turtle.png" },
+    badMatch: { name: "조화로운 해달", img: "/animals/sea-otter.png" },
+    img: "/animals/elephant.png",
+  },
+};
