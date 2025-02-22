@@ -43,9 +43,11 @@ export default function ResultPage() {
           name={developType.badMatch.name}
           img={developType.badMatch.img}
         />
-        <div className="col-span-2 md:col-span-1 flex flex-wrap md:flex-col w-fit gap-4">
-          <ButtonLink to="/test">테스트 다시 하기</ButtonLink>
-          <Button variant="outline" onClick={handleShareLinkClick}>
+        <div className="col-span-2 md:col-span-1  w-full flex flex-wrap md:flex-col justify-center md:items-end gap-4">
+          <ButtonLink to="/test" size="sm">
+            테스트 다시 하기
+          </ButtonLink>
+          <Button variant="outline" onClick={handleShareLinkClick} size="sm">
             테스트 공유 하기
           </Button>
         </div>
