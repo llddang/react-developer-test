@@ -14,7 +14,7 @@ export default function HomePage() {
             className="bg-white shadow-lg rounded-lg p-6 text-left space-y-4"
           >
             <h3 className="text-lg font-semibold text-primary">{info.title}</h3>
-            <p className="text-caption text-sm">{info.describe}</p>
+            <p className="text-caption text-sm">{info.description}</p>
           </li>
         ))}
       </ul>
@@ -29,19 +29,19 @@ const testDescribe = [
   {
     id: 1,
     title: "성격 유형 검사",
-    describe:
+    description:
       "자신의 성격 유형을 파악하고 삶의 여러 영역에서 어떤 영향을 미치는지 알아보세요.",
   },
   {
     id: 2,
     title: "성격 유형 이해",
-    describe:
+    description:
       "다른 사람들이 어떻게 행동하는지 이해하는 데 도움을 줄 수 있습니다.",
   },
   {
     id: 3,
     title: "팀 평가",
-    describe:
+    description:
       "팀 내에서 자신과 동료들의 성격을 이해하고 협력할 수 있는 방법을 배워보세요.",
   },
 ];

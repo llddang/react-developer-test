@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header className="h-15 p-4 shadow-md">
-      <nav className="flex justify-between items-center sm:mx-4 lg:max-w-5xl lg:mx-auto">
+      <nav className="max-w-5xl min-w-[320px] flex justify-between items-center lg:mx-auto">
         <StyledLink to="/">홈</StyledLink>
         {isAuth ? <AuthorizedSession /> : <UnauthorizedSession />}
       </nav>
@@ -32,7 +32,7 @@ function AuthorizedSession() {
     <div className="relative flex items-center pr-20 gap-4">
       <StyledLink to="/profile">프로필</StyledLink>
       <StyledLink to="/test">테스트</StyledLink>
-      <StyledLink to="/result">결과 보기</StyledLink>
+      <StyledLink to="/results">결과 보기</StyledLink>
       <Button
         onClick={handleSignOutClick}
         size="sm"

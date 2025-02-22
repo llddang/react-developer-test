@@ -6,7 +6,7 @@ import SignInPage from "@/pages/SignInPage";
 import SignUpPage from "@/pages/SignUpPage";
 import HomePage from "@/pages/HomePage";
 import TestPage from "@/pages/TestPage";
-import ResultPage from "@/pages/ResultPage";
+import ResultDetailPage from "@/pages/ResultDetailPage";
 
 const publicRoute = [
   {
@@ -16,6 +16,7 @@ const publicRoute = [
       { path: "", element: <HomePage /> },
       { path: "sign-in", element: <SignInPage /> },
       { path: "sign-up", element: <SignUpPage /> },
+      { path: "results/:type", element: <ResultDetailPage /> },
     ],
   },
 ];
@@ -31,7 +32,6 @@ const protectedRoute = [
         children: [
           { path: "profile", element: <ProfilePage /> },
           { path: "test", element: <TestPage /> },
-          { path: "result", element: <ResultPage /> },
         ],
       },
     ],

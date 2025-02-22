@@ -1,14 +1,14 @@
 import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "whitespace-nowrap rounded-md disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center border border-transparent whitespace-nowrap rounded-md disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
           "bg-primary text-white hover:bg-primary/80 active:bg-primary/90",
         outline:
-          "border border-primary text-primary hover:text-white bg-white hover:bg-primary/30 active:bg-primary/10",
+          "!border-primary text-primary hover:text-white bg-white hover:bg-primary/30 active:bg-primary/10",
         secondary:
           "bg-secondary text-white hover:bg-secondary/80 active:bg-secondary/90",
         ghost: "hover:bg-primary/10 text-primary",
