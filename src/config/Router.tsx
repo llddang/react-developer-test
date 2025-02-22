@@ -7,6 +7,7 @@ import SignUpPage from "@/pages/auth/SignUpPage";
 import ProfilePage from "@/pages/auth/ProfilePage";
 import TestPage from "@/pages/developer-test/TestPage";
 import ResultDetailPage from "@/pages/developer-test/ResultDetailPage";
+import ResultsPage from "@/pages/developer-test/ResultsPage";
 
 const publicRoute = [
   {
@@ -32,6 +33,7 @@ const protectedRoute = [
         children: [
           { path: "profile", element: <ProfilePage /> },
           { path: "test", element: <TestPage /> },
+          { path: "results", element: <ResultsPage /> },
         ],
       },
     ],
