@@ -29,7 +29,7 @@ export default function TestPage() {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white shadow-md rounded-lg px-8 py-4">
+    <div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg px-8 py-4">
       <h3 className="text-lg font-semibold mb-8">{question.question}</h3>
       <Button
         variant="outline"
