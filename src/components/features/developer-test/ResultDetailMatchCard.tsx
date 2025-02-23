@@ -1,13 +1,13 @@
-interface ResultMatchCardProps {
+interface ResultDetailMatchCardProps {
   name: string;
   img: string;
   matchTitle: string;
 }
-export default function ResultMatchCard({
+export default function ResultDetailMatchCard({
   name,
   img,
   matchTitle,
-}: ResultMatchCardProps) {
+}: ResultDetailMatchCardProps) {
   return (
     <div className="p-4 w-fit flex flex-col items-center border border-primary rounded-lg">
       <p className="font-semibold">{matchTitle}</p>

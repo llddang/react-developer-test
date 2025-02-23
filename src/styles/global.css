@@ -16,6 +16,9 @@
 
   #root {
     color: var(--text-color);
+  }
+
+  html {
     background-color: var(--background-color);
   }
 }
