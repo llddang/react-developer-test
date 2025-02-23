@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Button from "@/components/commons/Button";
 import ButtonLink from "@/components/commons/ButtonLink";
 import ResultDetailMatchCard from "@/components/features/developer-test/ResultDetailMatchCard";
@@ -8,6 +8,7 @@ import { developerTypes } from "@/data/developer-type.data";
 
 export default function ResultDetailPage() {
   const { type } = useParams();
+  const { state } = useLocation();
   if (!isValidDeveloperTypeId(type)) return <>찾을 수 없습니다.</>;
 
   const developerType = developerTypes[type];
@@ -44,9 +45,11 @@ export default function ResultDetailPage() {
           <ButtonLink to="/test" size="sm">
             테스트 다시 하기
           </ButtonLink>
-          <Button variant="outline" onClick={handleShareLinkClick} size="sm">
-            테스트 공유 하기
-          </Button>
+          {state?.isMine && (
+            <Button variant="outline" onClick={handleShareLinkClick} size="sm">
+              테스트 공유 하기
+            </Button>
+          )}
         </div>
       </div>
     </div>

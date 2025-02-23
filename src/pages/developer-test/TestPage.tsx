@@ -25,7 +25,7 @@ export default function TestPage() {
 
   function goResultPage() {
     const developerTypeId = calculateDeveloperType(answers);
-    navigate(`/results/${developerTypeId}`);
+    navigate(`/results/${developerTypeId}`, { state: { isMine: true } });
   }
 
   return (
