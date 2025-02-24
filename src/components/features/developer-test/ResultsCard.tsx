@@ -33,7 +33,7 @@ function ResultsCard({ id, nickname, avatar, type, isMine }: ResultsCardProps) {
 
   return (
     <Link
-      to={`/results/${type}`}
+      to={`/results/${id}`}
       className="block bg-primary/10 p-4 rounded-lg border border-primary"
     >
       <div className="flex justify-between w-full overflow-hidden">

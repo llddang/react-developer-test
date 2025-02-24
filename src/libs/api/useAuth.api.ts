@@ -33,7 +33,7 @@ export function useSignInMutate() {
     onSuccess: (response) => {
       const { accessToken, ...auth } = response;
       setToken(accessToken);
-      setUserInfo({ ...auth, isAuth: auth.success });
+      setUserInfo({ ...auth, id: auth.userId, isAuth: auth.success });
     },
   });
 }

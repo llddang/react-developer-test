@@ -13,14 +13,16 @@ export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
   return useQuery({
     queryKey: QueryKeys.DEVELOPER_RESULTS(page, limit),
     queryFn: async (): Promise<TestResultDto[]> => {
-      const response = await jsonServer.get(`/developer-test?_page=${page}&_limit=${limit}`);
+      const response = await jsonServer.get(
+        `/developer-tests?_page=${page}&_limit=${limit}&_expand=user`
+      );
 
       return response.data.map((item: TestResultResponseDto) => ({
         id: item.id,
-        nickname: item.nickname,
-        avatar: item.avatar,
-        userId: item.userIdentifier,
         type: item.type,
+        userId: item.userId,
+        avatar: item.user.avatar,
+        nickname: item.user.nickname,
       }));
     },
   });
@@ -30,12 +32,15 @@ export function useTestResultQuery({ id }: { id: number }) {
   return useQuery({
     queryKey: QueryKeys.DEVELOPER_DETAIL_RESULT(id),
     queryFn: async (): Promise<TestResultDto> => {
-      const response = await jsonServer.get(`/developer-test/${id}`);
+      const response = await jsonServer.get(`/developer-tests/${id}?_expand=user`);
       const data: TestResultResponseDto = response.data;
 
       return {
-        ...data,
-        userId: data.userIdentifier,
+        id: data.id,
+        type: data.type,
+        userId: data.userId,
+        avatar: data.user.avatar,
+        nickname: data.user.nickname,
       };
     },
   });
@@ -44,7 +49,7 @@ export function useTestResultQuery({ id }: { id: number }) {
 export function useCreateTestResultMutation() {
   return useMutation({
     mutationFn: async (testResult: TestResultRequestDto) => {
-      const response = await jsonServer.post("/developer-test", testResult);
+      const response = await jsonServer.post("/developer-tests", testResult);
       return response.data;
     },
   });
@@ -53,7 +58,7 @@ export function useCreateTestResultMutation() {
 export function useDeleteTestResultMutation() {
   return useMutation({
     mutationFn: async (id: number) => {
-      const response = await jsonServer.delete(`/developer-test/${id}`);
+      const response = await jsonServer.delete(`/developer-tests/${id}`);
       return response.data;
     },
     onSuccess: () => {

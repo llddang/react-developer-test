@@ -24,6 +24,10 @@ export interface UserDto extends ProfileDto {
   success: boolean;
 }
 
-export interface SignInResponseDto extends UserDto {
+export interface SignInResponseDto {
   accessToken: string;
+  userId: string;
+  success: boolean;
+  avatar: string;
+  nickname: string;
 }

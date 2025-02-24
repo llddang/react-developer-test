@@ -36,7 +36,7 @@ export default function useSignInForm() {
     e.preventDefault();
     if (isInvalidFormData()) return;
 
-    const { data } = await jsonServer.get(`/user?id=${formData.id}`);
+    const { data } = await jsonServer.get(`/users?id=${formData.id}`);
     if (data.length === 0) return alert("존재하지 않는 회원입니다.");
 
     signIn(formData, {

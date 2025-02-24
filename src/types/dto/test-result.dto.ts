@@ -10,13 +10,15 @@ export interface TestResultDto {
 
 export interface TestResultResponseDto extends TestResultRequestDto {
   id: number;
+  user: {
+    nickname: string;
+    avatar: string | null;
+  };
 }
 
 export interface TestResultRequestDto {
   type: DeveloperTypeId;
-  nickname: string;
-  avatar: string | null;
-  userIdentifier: string;
+  userId: string;
 }
 
 export interface PageDto {
