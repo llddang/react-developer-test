@@ -8,34 +8,23 @@ import { useCreateUserMutation } from "@/libs/api/useUser.api";
 export default function useSignUpForm() {
   const { mutate: signUp } = useSignUpMutate();
   const { mutate: createJsonUser } = useCreateUserMutation();
-
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<SignUpDto>({
-    id: "",
-    password: "",
-    nickname: "",
-  });
+
   const [errorMessage, setErrorMessage] = useState<SignUpDto>({
     id: "",
     password: "",
     nickname: "",
   });
 
-  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-
   function onBlurHandler(e: React.FocusEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-
     if (isValidUserField(name, value)) return setErrorMessage((prev) => ({ ...prev, [name]: "" }));
 
     const errorMsg = getUserErrorMessage(name);
     return setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
   }
 
-  function isInvalidFormData() {
+  function isInvalidFormData(formData: SignUpDto) {
     return Object.entries(formData).some(([name, value]) => {
       if (isValidUserField(name, value)) return false;
 
@@ -47,7 +36,13 @@ export default function useSignUpForm() {
 
   function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (isInvalidFormData()) return;
+    const form = new FormData(e.currentTarget);
+    const formData: SignUpDto = {
+      id: form.get("id") as string,
+      password: form.get("password") as string,
+      nickname: form.get("nickname") as string,
+    };
+    if (isInvalidFormData(formData)) return;
 
     signUp(formData, {
       onSuccess: () => {
@@ -62,9 +57,7 @@ export default function useSignUpForm() {
   }
 
   return {
-    formData,
     errorMessage,
-    onChangeHandler,
     onBlurHandler,
     onSubmitHandler,
   };
