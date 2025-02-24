@@ -15,7 +15,6 @@ export default function useProfileForm() {
   const { mutate: updateJsonUser } = useUpdateUserMutation();
 
   const initialFormData = useMemo(() => {
-    if (!profile) return { nickname: "", avatar: "" };
     return { nickname: profile.nickname, avatar: profile.avatar };
   }, [profile]);
 

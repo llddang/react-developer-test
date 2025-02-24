@@ -1,5 +1,6 @@
 import Button from "@/components/commons/Button";
 import StyledLink from "@/components/commons/StyledLink";
+import { prefetchProfile } from "@/libs/api/useAuth.api";
 import { useTokenStore } from "@/stores/token.store";
 import { useUserStore } from "@/stores/user.store";
 import { useNavigate } from "react-router-dom";
@@ -28,9 +29,12 @@ function AuthorizedSession() {
     clearUserInfo();
     navigate("/");
   }
+
   return (
     <div className="relative flex items-center pr-20 gap-4">
-      <StyledLink to="/profile">프로필</StyledLink>
+      <StyledLink to="/profile" onMouseEnter={prefetchProfile}>
+        프로필
+      </StyledLink>
       <StyledLink to="/test">테스트</StyledLink>
       <StyledLink to="/results">결과 보기</StyledLink>
       <Button

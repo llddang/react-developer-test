@@ -65,13 +65,12 @@ export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
   });
 }
 
-export async function prefetchTestResult(id: number) {
-  await queryClient.prefetchQuery({
+export function prefetchTestResult(id: number) {
+  return queryClient.prefetchQuery({
     queryKey: QueryKeys.DEVELOPER_DETAIL_RESULT(id),
     queryFn: async (): Promise<TestResult> => {
       const response = await jsonServer.get(`/developer-tests/${id}?_expand=user`);
       const data: TestResultResponseDto = response.data;
-
       return {
         id: data.id,
         type: data.type,
@@ -90,7 +89,6 @@ export function useTestResultQuery({ id }: { id: number }) {
     queryFn: async (): Promise<TestResult> => {
       const response = await jsonServer.get(`/developer-tests/${id}?_expand=user`);
       const data: TestResultResponseDto = response.data;
-
       return {
         id: data.id,
         type: data.type,
@@ -99,6 +97,7 @@ export function useTestResultQuery({ id }: { id: number }) {
         nickname: data.user.nickname,
       };
     },
+    staleTime: 60 * 1000,
   });
 }
 

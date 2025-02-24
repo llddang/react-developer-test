@@ -33,8 +33,8 @@ export default function TestPage() {
     createResultTest(
       { type: developerTypeId, userId: user.id },
       {
-        onSuccess: async (res) => {
-          await prefetchTestResult(res.id);
+        onSuccess: (res) => {
+          prefetchTestResult(res.id);
           navigate(`/results/${res.id}`);
         },
       }
