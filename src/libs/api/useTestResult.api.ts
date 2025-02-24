@@ -7,7 +7,7 @@ import {
   TestResultRequestDto,
   TestResultResponseDto,
 } from "@/types/dto/test-result.dto";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
   return useQuery({
@@ -47,7 +47,7 @@ export async function prefetchTestResult(id: number) {
 }
 
 export function useTestResultQuery({ id }: { id: number }) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: QueryKeys.DEVELOPER_DETAIL_RESULT(id),
     queryFn: async (): Promise<TestResult> => {
       const response = await jsonServer.get(`/developer-tests/${id}?_expand=user`);

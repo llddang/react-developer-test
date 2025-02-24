@@ -9,10 +9,8 @@ import { useUserStore } from "@/stores/user.store";
 
 export default function ResultDetailPage() {
   const { id: testResultId } = useParams();
-  const { data: result, isPending } = useTestResultQuery({ id: Number(testResultId) });
+  const { data: result } = useTestResultQuery({ id: Number(testResultId) });
   const user = useUserStore().user;
-
-  if (!result || isPending) return <p className="text-center">Loading...</p>;
 
   const developerType = developerTypes[result.type];
   async function handleShareLinkClick() {
