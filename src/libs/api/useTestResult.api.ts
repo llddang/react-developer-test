@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
   return useQuery({
-    queryKey: QueryKeys.DEVELOPER_TEST,
+    queryKey: QueryKeys.DEVELOPER_RESULTS(page, limit),
     queryFn: async (): Promise<TestResultDto[]> => {
       const response = await jsonServer.get(`/developer-test?_page=${page}&_limit=${limit}`);
 
@@ -27,7 +27,7 @@ export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
 
 export function useTestResultQuery({ id }: { id: number }) {
   return useQuery({
-    queryKey: QueryKeys.DEVELOPER_TEST,
+    queryKey: QueryKeys.DEVELOPER_DETAIL_RESULT(id),
     queryFn: async (): Promise<TestResultDto> => {
       const response = await jsonServer.get(`/developer-test/${id}`);
       const data: TestResultResponseDto = response.data;
