@@ -9,9 +9,7 @@ export default function ProfileForm() {
   return (
     <form onSubmit={onSubmitHandler} className="m-3 space-y-4 [&_input]:mb-4 [&_label]:text-sm">
       <label htmlFor="avatar">프로필</label>
-      {initialFormData?.avatar && (
-        <ImageInput id="avatar" name="avatar" defaultValue={initialFormData.avatar} />
-      )}
+      <ImageInput id="avatar" name="avatar" defaultValue={initialFormData.avatar} />
       <label htmlFor="nickname">닉네임</label>
       <AuthInput
         id="nickname"

@@ -10,7 +10,7 @@ import {
   ProfileRequestDto,
   ProfileResponseDto,
 } from "@/types/dto/auth.dto";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 
 export function useSignUpMutate() {
   return useMutation({
@@ -37,13 +37,26 @@ export function useSignInMutate() {
   });
 }
 
+export function prefetchProfile() {
+  return queryClient.prefetchQuery({
+    queryKey: QueryKeys.MEMBER_ME,
+    queryFn: async (): Promise<ProfileResponseDto> => {
+      const response = await authServer.get<ProfileResponseDto>("/user");
+      console.log("asdf");
+      return response.data;
+    },
+    staleTime: 60 * 1000,
+  });
+}
+
 export function useProfileQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: QueryKeys.MEMBER_ME,
     queryFn: async (): Promise<ProfileResponseDto> => {
       const response = await authServer.get<ProfileResponseDto>("/user");
       return response.data;
     },
+    staleTime: 60 * 1000,
   });
 }
 

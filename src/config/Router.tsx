@@ -8,6 +8,8 @@ import ProfilePage from "@/pages/auth/ProfilePage";
 import TestPage from "@/pages/developer-test/TestPage";
 import ResultDetailPage from "@/pages/developer-test/ResultDetailPage";
 import ResultsPage from "@/pages/developer-test/ResultsPage";
+import { Suspense } from "react";
+import Loading from "@/components/commons/Loading";
 
 const publicRoute = [
   {
@@ -17,7 +19,14 @@ const publicRoute = [
       { path: "", element: <HomePage /> },
       { path: "sign-in", element: <SignInPage /> },
       { path: "sign-up", element: <SignUpPage /> },
-      { path: "results/:id", element: <ResultDetailPage /> },
+      {
+        path: "results/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ResultDetailPage />
+          </Suspense>
+        ),
+      },
     ],
   },
 ];
@@ -33,7 +42,14 @@ const protectedRoute = [
         children: [
           { path: "profile", element: <ProfilePage /> },
           { path: "test", element: <TestPage /> },
-          { path: "results", element: <ResultsPage /> },
+          {
+            path: "results",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <ResultsPage />
+              </Suspense>
+            ),
+          },
         ],
       },
     ],

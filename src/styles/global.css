@@ -20,6 +20,13 @@
 
   html {
     background-color: var(--background-color);
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
@@ -29,4 +36,34 @@
   --color-primary: var(--primary-color);
   --color-secondary: var(--secondary-color);
   --color-background: var(--background-color);
+}
+
+@layer components {
+  .loading {
+    width: 100px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid #0000;
+    border-right-color: #ff5a5f97;
+    position: relative;
+    animation: loading-animation 0.5s infinite linear;
+  }
+  .loading:before,
+  .loading:after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: inherit;
+    animation: inherit;
+    animation-duration: 2s;
+  }
+  .loading:after {
+    animation-duration: 4s;
+  }
+  @keyframes loading-animation {
+    100% {
+      transform: rotate(1turn);
+    }
+  }
 }

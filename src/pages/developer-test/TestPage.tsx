@@ -5,7 +5,7 @@ import TestProgress from "@/components/features/developer-test/TestProgress";
 import { initialQuestion, questions } from "@/data/questions.data";
 import { calculateDeveloperType, isValidAnswerTypeId } from "@/libs/utils/developer-test.utils";
 import { PersonalityTypeScores } from "@/types/developer-test.type";
-import { useCreateTestResultMutation } from "@/libs/api/useTestResult.api";
+import { prefetchTestResult, useCreateTestResultMutation } from "@/libs/api/useTestResult.api";
 import { useUserStore } from "@/stores/user.store";
 
 export default function TestPage() {
@@ -34,6 +34,7 @@ export default function TestPage() {
       { type: developerTypeId, userId: user.id },
       {
         onSuccess: (res) => {
+          prefetchTestResult(res.id);
           navigate(`/results/${res.id}`);
         },
       }
