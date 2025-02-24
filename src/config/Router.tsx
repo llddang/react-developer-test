@@ -17,7 +17,7 @@ const publicRoute = [
       { path: "", element: <HomePage /> },
       { path: "sign-in", element: <SignInPage /> },
       { path: "sign-up", element: <SignUpPage /> },
-      { path: "results/:type", element: <ResultDetailPage /> },
+      { path: "results/:id", element: <ResultDetailPage /> },
     ],
   },
 ];

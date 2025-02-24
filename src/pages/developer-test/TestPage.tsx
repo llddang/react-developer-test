@@ -5,13 +5,18 @@ import TestProgress from "@/components/features/developer-test/TestProgress";
 import { initialQuestion, questions } from "@/data/questions.data";
 import { calculateDeveloperType, isValidAnswerTypeId } from "@/libs/utils/developer-test.utils";
 import { PersonalityTypeScoresDto } from "@/types/developer-test.type";
+import { useCreateTestResultMutation } from "@/libs/api/useTestResult.api";
+import { useUserStore } from "@/stores/user.store";
 
 export default function TestPage() {
   const [questionId, setQuestionId] = useState(1);
-  const question = questions.find((q) => q.id === questionId) ?? initialQuestion;
   const [answers, setAnswers] = useState(answerInitialValue);
-
   const navigate = useNavigate();
+
+  const question = questions.find((q) => q.id === questionId) ?? initialQuestion;
+
+  const { mutate: createResultTest } = useCreateTestResultMutation();
+  const user = useUserStore().user;
 
   function handleAnswerClick(e: React.MouseEvent<HTMLButtonElement>) {
     const { type } = e.currentTarget.dataset;
@@ -25,7 +30,14 @@ export default function TestPage() {
 
   function goResultPage() {
     const developerTypeId = calculateDeveloperType(answers);
-    navigate(`/results/${developerTypeId}`, { state: { isMine: true } });
+    createResultTest(
+      { type: developerTypeId, userIdentifier: user.userId, ...user },
+      {
+        onSuccess: (res) => {
+          navigate(`/results/${res.id}`);
+        },
+      }
+    );
   }
 
   return (
