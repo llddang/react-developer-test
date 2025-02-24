@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useSignUpMutate } from "@/libs/api/useAuth.api";
 import { isValidUserField, getUserErrorMessage } from "@/libs/utils/auth.util";
 import { SignUpDto } from "@/types/dto/auth.dto";
+import { useCreateUserMutation } from "@/libs/api/useUser.api";
 
 export default function useSignUpForm() {
   const { mutate: signUp } = useSignUpMutate();
+  const { mutate: createJsonUser } = useCreateUserMutation();
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState<SignUpDto>({
     id: "",
@@ -26,8 +29,7 @@ export default function useSignUpForm() {
   function onBlurHandler(e: React.FocusEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
-    if (isValidUserField(name, value))
-      return setErrorMessage((prev) => ({ ...prev, [name]: "" }));
+    if (isValidUserField(name, value)) return setErrorMessage((prev) => ({ ...prev, [name]: "" }));
 
     const errorMsg = getUserErrorMessage(name);
     return setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
@@ -50,6 +52,7 @@ export default function useSignUpForm() {
     signUp(formData, {
       onSuccess: () => {
         alert("회원가입 성공");
+        createJsonUser({ id: formData.id, nickname: formData.nickname, avatar: null });
         navigate("/sign-in");
       },
       onError: (e) => {

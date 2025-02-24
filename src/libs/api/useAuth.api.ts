@@ -27,10 +27,7 @@ export function useSignInMutate() {
 
   return useMutation({
     mutationFn: async (signInData: SignInDto) => {
-      const response = await authServer.post<SignInResponseDto>(
-        "/login",
-        signInData
-      );
+      const response = await authServer.post<SignInResponseDto>("/login", signInData);
       return response.data;
     },
     onSuccess: (response) => {
