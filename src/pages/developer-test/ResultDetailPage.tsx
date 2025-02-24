@@ -5,12 +5,14 @@ import ResultDetailMatchCard from "@/components/features/developer-test/ResultDe
 import ResultDetailMyTypeCard from "@/components/features/developer-test/ResultDetailMyTypeCard";
 import { developerTypes } from "@/data/developer-type.data";
 import { useTestResultQuery } from "@/libs/api/useTestResult.api";
+import { useUserStore } from "@/stores/user.store";
 
 export default function ResultDetailPage() {
   const { id: testResultId } = useParams();
-  const { data: result } = useTestResultQuery({ id: Number(testResultId) });
+  const { data: result, isPending } = useTestResultQuery({ id: Number(testResultId) });
+  const user = useUserStore().user;
 
-  if (!result) return <p className="text-center">Loading...</p>;
+  if (!result || isPending) return <p className="text-center">Loading...</p>;
 
   const developerType = developerTypes[result.type];
   async function handleShareLinkClick() {
@@ -45,10 +47,11 @@ export default function ResultDetailPage() {
           <ButtonLink to="/test" size="sm">
             테스트 다시 하기
           </ButtonLink>
-
-          <Button variant="outline" onClick={handleShareLinkClick} size="sm">
-            테스트 공유 하기
-          </Button>
+          {result.userId === user.userId && (
+            <Button variant="outline" onClick={handleShareLinkClick} size="sm">
+              테스트 공유 하기
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { QueryKeys } from "@/constants/query-key.constant";
 import { jsonServer } from "@/libs/api/jsonServer.axios";
+import { queryClient } from "@/main";
 import {
   PageDto,
   TestResultDto,
@@ -45,6 +46,18 @@ export function useCreateTestResultMutation() {
     mutationFn: async (testResult: TestResultRequestDto) => {
       const response = await jsonServer.post("/developer-test", testResult);
       return response.data;
+    },
+  });
+}
+
+export function useDeleteTestResultMutation() {
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await jsonServer.delete(`/developer-test/${id}`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QueryKeys.DEVELOPER_RESULTS(0, 20) });
     },
   });
 }
