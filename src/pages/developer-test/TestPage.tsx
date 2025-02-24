@@ -31,7 +31,7 @@ export default function TestPage() {
   function goResultPage() {
     const developerTypeId = calculateDeveloperType(answers);
     createResultTest(
-      { type: developerTypeId, userIdentifier: user.userId, ...user },
+      { type: developerTypeId, userIdentifier: user.id, ...user },
       {
         onSuccess: (res) => {
           navigate(`/results/${res.id}`);

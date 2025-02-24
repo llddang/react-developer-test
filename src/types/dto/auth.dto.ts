@@ -20,7 +20,7 @@ export interface ProfileDto {
 }
 
 export interface UserDto extends ProfileDto {
-  userId: string;
+  id: string;
   success: boolean;
 }
 

@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 
 interface UserDto {
   isAuth: boolean;
-  userId: string;
+  id: string;
   nickname: string;
   avatar: string | null;
 }
@@ -16,7 +16,7 @@ interface UserState {
 
 const initialValue: UserDto = {
   isAuth: false,
-  userId: "",
+  id: "",
   nickname: "",
   avatar: "",
 };

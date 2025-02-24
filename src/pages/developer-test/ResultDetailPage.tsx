@@ -47,7 +47,7 @@ export default function ResultDetailPage() {
           <ButtonLink to="/test" size="sm">
             테스트 다시 하기
           </ButtonLink>
-          {result.userId === user.userId && (
+          {result.userId === user.id && (
             <Button variant="outline" onClick={handleShareLinkClick} size="sm">
               테스트 공유 하기
             </Button>

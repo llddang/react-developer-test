@@ -12,7 +12,7 @@ export default function ResultsPage() {
       <ul className="[&>*]:mb-4">
         {developerTestResults && developerTestResults.length !== 0 ? (
           developerTestResults.map((info) => (
-            <ResultsCard key={info.id} {...info} isMine={user.userId === info.userId} />
+            <ResultsCard key={info.id} {...info} isMine={user.id === info.userId} />
           ))
         ) : (
           <p>테스트 결과가 없습니다!</p>
