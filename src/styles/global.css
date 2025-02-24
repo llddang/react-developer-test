@@ -20,6 +20,13 @@
 
   html {
     background-color: var(--background-color);
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 

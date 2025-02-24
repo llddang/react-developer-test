@@ -7,7 +7,45 @@ import {
   TestResultRequestDto,
   TestResultResponseDto,
 } from "@/types/dto/test-result.dto";
-import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useSuspenseInfiniteQuery,
+  useMutation,
+  useQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
+
+export function useInfiniteTestResults({ limit = 20 }: { limit: number }) {
+  return useSuspenseInfiniteQuery({
+    queryKey: QueryKeys.DEVELOPER_INFINITE_RESULTS,
+    queryFn: async ({
+      pageParam = 0,
+    }: {
+      pageParam: number;
+    }): Promise<{
+      results: TestResult[];
+      nextPage: number | undefined;
+    }> => {
+      const response = await jsonServer.get(
+        `/developer-tests?_page=${pageParam}&_limit=${limit}&_expand=user`
+      );
+      const results = response.data.map((item: TestResultResponseDto) => ({
+        id: item.id,
+        type: item.type,
+        userId: item.userId,
+        avatar: item.user.avatar,
+        nickname: item.user.nickname,
+      }));
+      const hasMore = response.data.length === limit;
+
+      return {
+        results,
+        nextPage: hasMore ? pageParam + 1 : undefined,
+      };
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+  });
+}
 
 export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
   return useQuery({
@@ -16,7 +54,6 @@ export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
       const response = await jsonServer.get(
         `/developer-tests?_page=${page}&_limit=${limit}&_expand=user`
       );
-
       return response.data.map((item: TestResultResponseDto) => ({
         id: item.id,
         type: item.type,
@@ -43,6 +80,7 @@ export async function prefetchTestResult(id: number) {
         nickname: data.user.nickname,
       };
     },
+    staleTime: 60 * 1000,
   });
 }
 
@@ -80,7 +118,7 @@ export function useDeleteTestResultMutation() {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QueryKeys.DEVELOPER_RESULTS(0, 20) });
+      queryClient.invalidateQueries({ queryKey: QueryKeys.DEVELOPER_INFINITE_RESULTS });
     },
   });
 }

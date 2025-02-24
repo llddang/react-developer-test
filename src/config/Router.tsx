@@ -42,7 +42,14 @@ const protectedRoute = [
         children: [
           { path: "profile", element: <ProfilePage /> },
           { path: "test", element: <TestPage /> },
-          { path: "results", element: <ResultsPage /> },
+          {
+            path: "results",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <ResultsPage />
+              </Suspense>
+            ),
+          },
         ],
       },
     ],

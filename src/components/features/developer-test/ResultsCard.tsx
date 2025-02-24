@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import AvatarIcon from "@/components/commons/AvatarIcon";
 import Button from "@/components/commons/Button";
 import { developerTypes } from "@/data/developer-type.data";
@@ -15,8 +15,11 @@ interface ResultsCardProps {
   isMine: boolean;
 }
 
-export default React.memo(ResultsCard);
-function ResultsCard({ id, nickname, avatar, type, isMine }: ResultsCardProps) {
+export default React.memo(forwardRef<HTMLAnchorElement, ResultsCardProps>(ResultsCard));
+function ResultsCard(
+  { id, nickname, avatar, type, isMine }: ResultsCardProps,
+  ref?: React.ForwardedRef<HTMLAnchorElement>
+) {
   const { mutate: deleteTestResult } = useDeleteTestResultMutation();
   if (!isValidDeveloperTypeId(type)) return null;
 
@@ -35,6 +38,7 @@ function ResultsCard({ id, nickname, avatar, type, isMine }: ResultsCardProps) {
     <Link
       to={`/results/${id}`}
       className="block bg-primary/10 p-4 rounded-lg border border-primary"
+      ref={ref}
     >
       <div className="flex justify-between w-full overflow-hidden">
         <h3 className="shrink flex min-w-0 text-xl font-semibold gap-2 items-center mb-4">
