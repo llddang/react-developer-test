@@ -3,7 +3,7 @@ import {
   DeveloperTypeId,
   PERSONALITY_TYPE,
   PersonalityTypeId,
-  PersonalityTypeScoresDto,
+  PersonalityTypeScores,
 } from "@/types/developer-test.type";
 
 /**
@@ -48,7 +48,7 @@ export function getAfterWidth(progress: number) {
  * @example
  * const devTypeId = calculateDeveloperType(-5, 10, 3); ITJ 반환
  */
-export function calculateDeveloperType(answers: PersonalityTypeScoresDto): DeveloperTypeId {
+export function calculateDeveloperType(answers: PersonalityTypeScores): DeveloperTypeId {
   const type =
     (answers.E > answers.I ? "E" : "I") +
     (answers.T > answers.F ? "T" : "F") +

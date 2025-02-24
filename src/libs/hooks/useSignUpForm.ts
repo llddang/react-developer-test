@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignUpMutate } from "@/libs/api/useAuth.api";
 import { isValidUserField, getUserErrorMessage } from "@/libs/utils/auth.util";
-import { SignUpDto } from "@/types/dto/auth.dto";
+import { SignUpRequestDto } from "@/types/dto/auth.dto";
 import { useCreateUserMutation } from "@/libs/api/useUser.api";
 
 export default function useSignUpForm() {
@@ -10,7 +10,7 @@ export default function useSignUpForm() {
   const { mutate: createJsonUser } = useCreateUserMutation();
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState<SignUpDto>({
+  const [errorMessage, setErrorMessage] = useState<SignUpRequestDto>({
     id: "",
     password: "",
     nickname: "",
@@ -24,7 +24,7 @@ export default function useSignUpForm() {
     return setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
   }
 
-  function isInvalidFormData(formData: SignUpDto) {
+  function isInvalidFormData(formData: SignUpRequestDto) {
     return Object.entries(formData).some(([name, value]) => {
       if (isValidUserField(name, value)) return false;
 
@@ -37,7 +37,7 @@ export default function useSignUpForm() {
   function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const formData: SignUpDto = {
+    const formData: SignUpRequestDto = {
       id: form.get("id") as string,
       password: form.get("password") as string,
       nickname: form.get("nickname") as string,

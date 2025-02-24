@@ -11,19 +11,15 @@ export const DEVELOPER_TYPE = {
 } as const;
 export type DeveloperTypeId = (typeof DEVELOPER_TYPE)[keyof typeof DEVELOPER_TYPE];
 
-export interface DeveloperMatchDto {
-  name: string;
-  img: string;
-}
-export interface DeveloperTypeInfoDto {
+export interface DeveloperTypeInfo {
   name: string;
   description: string[];
-  goodMatch: DeveloperMatchDto;
-  badMatch: DeveloperMatchDto;
+  goodMatch: { name: string; img: string };
+  badMatch: { name: string; img: string };
   img: string;
 }
-export type DeveloperTypeCollectionDto = {
-  [K in DeveloperTypeId]: DeveloperTypeInfoDto;
+export type DeveloperTypeCollection = {
+  [K in DeveloperTypeId]: DeveloperTypeInfo;
 };
 
 /* personality type */
@@ -37,6 +33,6 @@ export const PERSONALITY_TYPE = {
 } as const;
 export type PersonalityTypeId = (typeof PERSONALITY_TYPE)[keyof typeof PERSONALITY_TYPE];
 
-export type PersonalityTypeScoresDto = {
+export type PersonalityTypeScores = {
   [K in PersonalityTypeId]: number;
 };

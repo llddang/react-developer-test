@@ -4,7 +4,7 @@ import Button from "@/components/commons/Button";
 import TestProgress from "@/components/features/developer-test/TestProgress";
 import { initialQuestion, questions } from "@/data/questions.data";
 import { calculateDeveloperType, isValidAnswerTypeId } from "@/libs/utils/developer-test.utils";
-import { PersonalityTypeScoresDto } from "@/types/developer-test.type";
+import { PersonalityTypeScores } from "@/types/developer-test.type";
 import { useCreateTestResultMutation } from "@/libs/api/useTestResult.api";
 import { useUserStore } from "@/stores/user.store";
 
@@ -64,7 +64,7 @@ export default function TestPage() {
   );
 }
 
-const answerInitialValue: PersonalityTypeScoresDto = {
+const answerInitialValue: PersonalityTypeScores = {
   E: 0,
   I: 0,
   T: 0,

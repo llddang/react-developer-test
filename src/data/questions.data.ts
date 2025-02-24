@@ -1,13 +1,18 @@
-import { QuestionDto } from "@/types/dto/question.dto";
-
-export const initialQuestion: QuestionDto = {
-  id: -1, 
-  question: "", 
-  A: { answer: "", type:"" }, 
-  B: { answer: "", type:"" },
+export interface Question {
+  id: number;
+  question: string;
+  A: { answer: string; type: string };
+  B: { answer: string; type: string };
 }
 
-export const questions: QuestionDto[] = [
+export const initialQuestion: Question = {
+  id: -1,
+  question: "",
+  A: { answer: "", type: "" },
+  B: { answer: "", type: "" },
+};
+
+export const questions: Question[] = [
   {
     id: 1,
     question: "팀에서 새로운 기술 스택 도입을 논의하는 회의가 열렸다. 당신은 어떻게 참여하는가?",
@@ -64,7 +69,8 @@ export const questions: QuestionDto[] = [
   },
   {
     id: 10,
-    question: "코드 리뷰 시간에 당신의 PR(Pull Request)에 대해 여러 의견이 제시되었다. 어떻게 대응하는가?",
+    question:
+      "코드 리뷰 시간에 당신의 PR(Pull Request)에 대해 여러 의견이 제시되었다. 어떻게 대응하는가?",
     A: { answer: "실시간 미팅을 열어 모든 의견을 직접 논의하고 즉시 해결한다", type: "E" },
     B: { answer: "모든 의견을 정리하고 혼자 검토한 후 체계적으로 답변을 작성한다", type: "I" },
   },
@@ -72,11 +78,15 @@ export const questions: QuestionDto[] = [
     id: 11,
     question: "레거시 시스템을 현대화하는 프로젝트를 맡게 되었다. 어떻게 접근하는가?",
     A: { answer: "전체 시스템을 분석하고 명확한 마이그레이션 계획을 세워 진행한다", type: "J" },
-    B: { answer: "가장 문제가 되는 부분부터 점진적으로 개선하며 진행 상황에 따라 조정한다", type: "P" },
+    B: {
+      answer: "가장 문제가 되는 부분부터 점진적으로 개선하며 진행 상황에 따라 조정한다",
+      type: "P",
+    },
   },
   {
     id: 12,
-    question: "코드 리뷰에서 주니어 개발자의 코드에 많은 문제점을 발견했다. 어떻게 피드백을 주는가?",
+    question:
+      "코드 리뷰에서 주니어 개발자의 코드에 많은 문제점을 발견했다. 어떻게 피드백을 주는가?",
     A: { answer: "모든 문제점을 명확하게 지적하고 개선 방향을 제시한다", type: "T" },
     B: { answer: "잘한 부분을 먼저 언급하고 개선점을 조언하는 식으로 접근한다", type: "F" },
   },
@@ -94,7 +104,8 @@ export const questions: QuestionDto[] = [
   },
   {
     id: 15,
-    question: "기술 도입으로 인해 일부 팀원들의 역할이 축소될 수 있는 상황이다. 의사결정 시 가장 중요하게 고려하는 것은?",
+    question:
+      "기술 도입으로 인해 일부 팀원들의 역할이 축소될 수 있는 상황이다. 의사결정 시 가장 중요하게 고려하는 것은?",
     A: { answer: "장기적인 기술적 이점과 비용 효율성을 객관적으로 평가한다", type: "T" },
     B: { answer: "팀 구성원의 커리어와 만족도에 미치는 영향을 고려한다", type: "F" },
   },

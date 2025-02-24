@@ -2,18 +2,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignInMutate } from "@/libs/api/useAuth.api";
 import { jsonServer } from "@/libs/api/jsonServer.axios";
-import { SignInDto } from "@/types/dto/auth.dto";
+import { SignInRequestDto } from "@/types/dto/auth.dto";
 
 export default function useSignInForm() {
   const { mutate: signIn } = useSignInMutate();
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState<SignInDto>({
+  const [errorMessage, setErrorMessage] = useState<SignInRequestDto>({
     id: "",
     password: "",
   });
 
-  function isInvalidFormData(formData: SignInDto) {
+  function isInvalidFormData(formData: SignInRequestDto) {
     return Object.entries(formData).some(([name, value]) => {
       if (value !== "") {
         setErrorMessage((prev) => ({ ...prev, [name]: "" }));
@@ -29,7 +29,7 @@ export default function useSignInForm() {
   async function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const formData: SignInDto = {
+    const formData: SignInRequestDto = {
       id: form.get("id") as string,
       password: form.get("password") as string,
     };

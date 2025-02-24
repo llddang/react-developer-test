@@ -3,15 +3,14 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
+const initialValue: string = "";
+
 interface TokenState {
   token: string;
   setToken: (token: string) => void;
   clearToken: () => void;
   isValidToken: () => boolean;
 }
-
-const initialValue: string = "";
-
 export const useTokenStore = create<TokenState>()(
   persist(
     immer((set, get) => ({

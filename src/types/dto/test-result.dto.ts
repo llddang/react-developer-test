@@ -1,11 +1,16 @@
 import { DeveloperTypeId } from "@/types/developer-test.type";
 
-export interface TestResultDto {
+export interface TestResult {
   id: number;
   nickname: string;
   userId: string;
   avatar: string | null;
   type: DeveloperTypeId;
+}
+
+export interface TestResultRequestDto {
+  type: DeveloperTypeId;
+  userId: string;
 }
 
 export interface TestResultResponseDto extends TestResultRequestDto {
@@ -14,11 +19,6 @@ export interface TestResultResponseDto extends TestResultRequestDto {
     nickname: string;
     avatar: string | null;
   };
-}
-
-export interface TestResultRequestDto {
-  type: DeveloperTypeId;
-  userId: string;
 }
 
 export interface PageDto {

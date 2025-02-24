@@ -3,7 +3,7 @@ import { jsonServer } from "@/libs/api/jsonServer.axios";
 import { queryClient } from "@/main";
 import {
   PageDto,
-  TestResultDto,
+  TestResult,
   TestResultRequestDto,
   TestResultResponseDto,
 } from "@/types/dto/test-result.dto";
@@ -12,7 +12,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
   return useQuery({
     queryKey: QueryKeys.DEVELOPER_RESULTS(page, limit),
-    queryFn: async (): Promise<TestResultDto[]> => {
+    queryFn: async (): Promise<TestResult[]> => {
       const response = await jsonServer.get(
         `/developer-tests?_page=${page}&_limit=${limit}&_expand=user`
       );
@@ -31,7 +31,7 @@ export function useTestResultByPageQuery({ page = 0, limit = 20 }: PageDto) {
 export function useTestResultQuery({ id }: { id: number }) {
   return useQuery({
     queryKey: QueryKeys.DEVELOPER_DETAIL_RESULT(id),
-    queryFn: async (): Promise<TestResultDto> => {
+    queryFn: async (): Promise<TestResult> => {
       const response = await jsonServer.get(`/developer-tests/${id}?_expand=user`);
       const data: TestResultResponseDto = response.data;
 
