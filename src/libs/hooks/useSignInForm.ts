@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignInMutate } from "@/libs/api/useAuth.api";
+import { jsonServer } from "@/libs/api/jsonServer.axios";
 import { SignInDto } from "@/types/dto/auth.dto";
 
 export default function useSignInForm() {
@@ -25,16 +26,18 @@ export default function useSignInForm() {
     return Object.entries(formData).some(([name, value]) => {
       if (value !== "") return false;
 
-      const errorMsg =
-        name === "id" ? "아이디를 입력해주세요." : "비밀번호를 입력해주세요";
+      const errorMsg = name === "id" ? "아이디를 입력해주세요." : "비밀번호를 입력해주세요";
       setErrorMessage((prev) => ({ ...prev, [name]: errorMsg }));
       return true;
     });
   }
 
-  function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isInvalidFormData()) return;
+
+    const { data } = await jsonServer.get(`/user?id=${formData.id}`);
+    if (data.length === 0) return alert("존재하지 않는 회원입니다.");
 
     signIn(formData, {
       onSuccess: () => {
