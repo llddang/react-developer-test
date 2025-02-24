@@ -1,6 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useProfileMutate, useProfileQuery } from "@/libs/api/useAuth.api";
 import { getUserErrorMessage, isValidUserField } from "@/libs/utils/auth.util";
+import { useUpdateUserMutation } from "@/libs/api/useUser.api";
 import { ProfileRequestDto } from "@/types/dto/auth.dto";
 
 interface ProfileDto {
@@ -11,6 +12,7 @@ interface ProfileDto {
 export default function useProfileForm() {
   const { data: profile } = useProfileQuery();
   const { mutate: updateProfile } = useProfileMutate();
+  const { mutate: updateJsonUser } = useUpdateUserMutation();
 
   const initialFormData = useMemo(() => {
     if (!profile) return { nickname: "", avatar: "" };
@@ -43,26 +45,29 @@ export default function useProfileForm() {
 
   function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+    const form = new FormData(e.currentTarget);
+    const formData = {
+      nickname: form.get("nickname") as string,
+      avatar: form.get("avatar") as File,
+    };
 
-    const nickname = formData.get("nickname") as string;
-    const avatar = formData.get("avatar") as File;
+    if (isInvalidFormData(formData)) return;
 
-    if (isInvalidFormData({ nickname, avatar })) return;
-
-    updateProfile(
-      { avatar, nickname },
-      {
-        onSuccess: () => {
-          alert("프로필이 갱신되었습니다!");
-        },
-        onError: (err) => {
-          alert(err.message);
-        },
-      }
-    );
+    updateProfile(formData, {
+      onSuccess: () => {
+        alert("프로필이 갱신되었습니다!");
+      },
+      onError: (err) => {
+        alert(err.message);
+      },
+    });
   }
+
+  useEffect(() => {
+    return () => {
+      if (profile) updateJsonUser(profile);
+    };
+  }, [profile, updateJsonUser]);
 
   return { initialFormData, errorMessage, onSubmitHandler };
 }

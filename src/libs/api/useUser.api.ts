@@ -10,3 +10,10 @@ export function useCreateUserMutation() {
   });
 }
 
+export function useUpdateUserMutation() {
+  return useMutation({
+    mutationFn: async (userInfo: UserRequestDto) => {
+      await jsonServer.put(`/user/${userInfo.id}`, userInfo);
+    },
+  });
+}
