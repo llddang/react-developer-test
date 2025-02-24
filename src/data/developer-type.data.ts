@@ -1,6 +1,6 @@
-import { DeveloperTypeCollectionDto } from "@/types/developer-test.type";
+import { DeveloperTypeCollection } from "@/types/developer-test.type";
 
-export const developerTypes: DeveloperTypeCollectionDto = {
+export const developerTypes: DeveloperTypeCollection = {
   ITJ: {
     name: "체계적인 거북이",
     description: [

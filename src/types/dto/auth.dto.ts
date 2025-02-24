@@ -1,12 +1,20 @@
-export interface SignUpDto {
+export interface SignUpRequestDto {
   id: string;
   password: string;
   nickname: string;
 }
 
-export interface SignInDto {
+export interface SignInRequestDto {
   id: string;
   password: string;
+}
+
+export interface SignInResponseDto {
+  accessToken: string;
+  userId: string;
+  success: boolean;
+  avatar: string;
+  nickname: string;
 }
 
 export interface ProfileRequestDto {
@@ -14,16 +22,9 @@ export interface ProfileRequestDto {
   nickname: string;
 }
 
-export interface ProfileDto {
+export interface ProfileResponseDto {
+  id: string;
+  success: boolean;
   nickname: string;
   avatar: string | null;
-}
-
-export interface UserDto extends ProfileDto {
-  userId: string;
-  success: boolean;
-}
-
-export interface SignInResponseDto extends UserDto {
-  accessToken: string;
 }

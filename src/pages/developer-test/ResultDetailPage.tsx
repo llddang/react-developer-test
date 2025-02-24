@@ -1,18 +1,20 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Button from "@/components/commons/Button";
 import ButtonLink from "@/components/commons/ButtonLink";
 import ResultDetailMatchCard from "@/components/features/developer-test/ResultDetailMatchCard";
 import ResultDetailMyTypeCard from "@/components/features/developer-test/ResultDetailMyTypeCard";
-import { isValidDeveloperTypeId } from "@/libs/utils/developer-test.utils";
 import { developerTypes } from "@/data/developer-type.data";
+import { useTestResultQuery } from "@/libs/api/useTestResult.api";
+import { useUserStore } from "@/stores/user.store";
 
 export default function ResultDetailPage() {
-  const { type } = useParams();
-  const { state } = useLocation();
-  if (!isValidDeveloperTypeId(type)) return <>찾을 수 없습니다.</>;
+  const { id: testResultId } = useParams();
+  const { data: result, isPending } = useTestResultQuery({ id: Number(testResultId) });
+  const user = useUserStore().user;
 
-  const developerType = developerTypes[type];
+  if (!result || isPending) return <p className="text-center">Loading...</p>;
 
+  const developerType = developerTypes[result.type];
   async function handleShareLinkClick() {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -45,7 +47,7 @@ export default function ResultDetailPage() {
           <ButtonLink to="/test" size="sm">
             테스트 다시 하기
           </ButtonLink>
-          {state?.isMine && (
+          {result.userId === user.id && (
             <Button variant="outline" onClick={handleShareLinkClick} size="sm">
               테스트 공유 하기
             </Button>

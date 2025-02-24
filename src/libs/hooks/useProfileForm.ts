@@ -1,63 +1,36 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useProfileMutate, useProfileQuery } from "@/libs/api/useAuth.api";
 import { getUserErrorMessage, isValidUserField } from "@/libs/utils/auth.util";
+import { useUpdateUserMutation } from "@/libs/api/useUser.api";
+import { ProfileRequestDto } from "@/types/dto/auth.dto";
 
 interface ProfileDto {
-  avatar: string;
+  avatar: string | null;
   nickname: string;
 }
 
 export default function useProfileForm() {
   const { data: profile } = useProfileQuery();
   const { mutate: updateProfile } = useProfileMutate();
-  const previousFormData = useRef<ProfileDto>({ nickname: "", avatar: "" });
+  const { mutate: updateJsonUser } = useUpdateUserMutation();
 
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [formData, setFormData] = useState<ProfileDto>({
-    nickname: "",
-    avatar: "",
-  });
+  const initialFormData = useMemo(() => {
+    if (!profile) return { nickname: "", avatar: "" };
+    return { nickname: profile.nickname, avatar: profile.avatar };
+  }, [profile]);
+
   const [errorMessage, setErrorMessage] = useState<ProfileDto>({
     nickname: "",
     avatar: "",
   });
 
-  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "nickname": {
-        setFormData((prev) => ({
-          nickname: value,
-          avatar: prev.avatar,
-        }));
-        return;
-      }
-      case "avatar": {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        if (file.size >= (1024 * 1024) / 2)
-          return alert("500KB 이하의 파일만 넣을 수 있습니다. ");
-        setAvatarFile(file);
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setFormData((prev) => ({
-            nickname: prev.nickname,
-            avatar: reader.result as string,
-          }));
-        };
-        reader.readAsDataURL(file);
-        break;
-      }
-    }
-  }
-
-  function isInvalidFormData() {
+  function isInvalidFormData(formData: ProfileRequestDto) {
     if (
-      previousFormData.current.nickname === formData.nickname &&
-      previousFormData.current.avatar === formData.avatar
+      initialFormData.nickname === formData.nickname &&
+      (!formData.avatar || (formData.avatar.name === "" && formData.avatar.size === 0))
     )
       return true;
+
     return Object.entries(formData).some(([name, value]) => {
       if (isValidUserField(name, value)) {
         setErrorMessage((prev) => ({ ...prev, [name]: "" }));
@@ -72,31 +45,29 @@ export default function useProfileForm() {
 
   function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const formData = {
+      nickname: form.get("nickname") as string,
+      avatar: form.get("avatar") as File,
+    };
 
-    if (isInvalidFormData()) return;
+    if (isInvalidFormData(formData)) return;
 
-    updateProfile(
-      { avatar: avatarFile, nickname: formData.nickname },
-      {
-        onSuccess: () => {
-          alert("프로필이 갱신되었습니다!");
-        },
-        onError: (err) => {
-          alert(err.message);
-        },
-      }
-    );
+    updateProfile(formData, {
+      onSuccess: () => {
+        alert("프로필이 갱신되었습니다!");
+      },
+      onError: (err) => {
+        alert(err.message);
+      },
+    });
   }
 
   useEffect(() => {
-    if (!profile) return;
-    const newProfile = {
-      avatar: profile.avatar || "",
-      nickname: profile.nickname,
+    return () => {
+      if (profile) updateJsonUser(profile);
     };
-    setFormData(newProfile);
-    previousFormData.current = newProfile;
-  }, [profile]);
+  }, [profile, updateJsonUser]);
 
-  return { formData, errorMessage, onChangeHandler, onSubmitHandler };
+  return { initialFormData, errorMessage, onSubmitHandler };
 }

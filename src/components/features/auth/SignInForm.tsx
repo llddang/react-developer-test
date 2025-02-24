@@ -3,19 +3,13 @@ import AuthInput from "@/components/features/auth/AuthInput";
 import useSignInForm from "@/libs/hooks/useSignInForm";
 
 export default function SignInForm() {
-  const { formData, errorMessage, onChangeHandler, onSubmitHandler } =
-    useSignInForm();
+  const { errorMessage, onSubmitHandler } = useSignInForm();
 
   return (
-    <form
-      onSubmit={onSubmitHandler}
-      className="space-y-4 bg-gray-50 p-4 rounded-lg shadow-md"
-    >
+    <form onSubmit={onSubmitHandler} className="space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
       <AuthInput
         type="text"
         name="id"
-        value={formData.id}
-        onChange={onChangeHandler}
         placeholder="아이디"
         autoComplete="username"
         errorMessage={errorMessage.id}
@@ -23,8 +17,6 @@ export default function SignInForm() {
       <AuthInput
         type="password"
         name="password"
-        value={formData.password}
-        onChange={onChangeHandler}
         placeholder="비밀번호"
         autoComplete="new-password"
         errorMessage={errorMessage.password}
