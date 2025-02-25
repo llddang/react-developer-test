@@ -14,7 +14,7 @@ export default function TestProgress({ progress }: { progress: number }) {
           💻
         </p>
       </div>
-      <p className="text-center">
+      <p className="text-center mt-4">
         <b className="text-lg">{progress}</b> / 15
       </p>
     </>
