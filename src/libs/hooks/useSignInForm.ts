@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignInMutate } from "@/libs/api/useAuth.api";
 import { jsonServer } from "@/libs/api/jsonServer.axios";
 import { SignInRequestDto } from "@/types/dto/auth.dto";
+import { toast } from "react-toastify";
 
 export default function useSignInForm() {
   const { mutate: signIn } = useSignInMutate();
@@ -36,15 +37,15 @@ export default function useSignInForm() {
     if (isInvalidFormData(formData)) return;
 
     const { data } = await jsonServer.get(`/users?id=${formData.id}`);
-    if (data.length === 0) return alert("존재하지 않는 회원입니다.");
+    if (data.length === 0) return toast.error("존재하지 않는 회원입니다.");
 
     signIn(formData, {
       onSuccess: () => {
-        alert("로그인 성공");
+        toast.success("로그인 성공");
         navigate("/");
       },
       onError: (e) => {
-        alert(e.message);
+        toast.error(e.message);
       },
     });
   }

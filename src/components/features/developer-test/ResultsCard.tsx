@@ -5,6 +5,7 @@ import { developerTypes } from "@/data/developer-type.data";
 import { isValidDeveloperTypeId } from "@/libs/utils/developer-test.utils";
 import { Link } from "react-router-dom";
 import { useDeleteTestResultMutation } from "@/libs/api/useTestResult.api";
+import { toast } from "react-toastify";
 
 interface ResultsCardProps {
   id: number;
@@ -29,7 +30,7 @@ function ResultsCard(
     e.preventDefault();
     deleteTestResult(id, {
       onSuccess: () => {
-        alert("테스트 결과가 삭제되었습니다.");
+        toast.success("테스트 결과가 삭제되었습니다.");
       },
     });
   }

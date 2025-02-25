@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 interface ImageInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "defaultValue"> {
@@ -16,7 +17,7 @@ export default function ImageInput({
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size >= (1024 * 1024) / 2) return alert("500KB 이하의 파일만 넣을 수 있습니다. ");
+    if (file.size >= (1024 * 1024) / 2) return toast.info("500KB 이하의 파일만 넣을 수 있습니다. ");
 
     const imageUrl = URL.createObjectURL(file);
     setPreview(imageUrl);

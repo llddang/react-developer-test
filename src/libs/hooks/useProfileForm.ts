@@ -3,6 +3,7 @@ import { useProfileMutate, useProfileQuery } from "@/libs/api/useAuth.api";
 import { getUserErrorMessage, isValidUserField } from "@/libs/utils/auth.util";
 import { useUpdateUserMutation } from "@/libs/api/useUser.api";
 import { ProfileRequestDto } from "@/types/dto/auth.dto";
+import { toast } from "react-toastify";
 
 interface ProfileDto {
   avatar: string | null;
@@ -54,10 +55,10 @@ export default function useProfileForm() {
 
     updateProfile(formData, {
       onSuccess: () => {
-        alert("프로필이 갱신되었습니다!");
+        toast.success("프로필이 갱신되었습니다!");
       },
       onError: (err) => {
-        alert(err.message);
+        toast.error(err.message);
       },
     });
   }

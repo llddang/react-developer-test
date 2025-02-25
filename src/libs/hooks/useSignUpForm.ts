@@ -4,6 +4,7 @@ import { useSignUpMutate } from "@/libs/api/useAuth.api";
 import { isValidUserField, getUserErrorMessage } from "@/libs/utils/auth.util";
 import { SignUpRequestDto } from "@/types/dto/auth.dto";
 import { useCreateUserMutation } from "@/libs/api/useUser.api";
+import { toast } from "react-toastify";
 
 export default function useSignUpForm() {
   const { mutate: signUp } = useSignUpMutate();
@@ -46,12 +47,12 @@ export default function useSignUpForm() {
 
     signUp(formData, {
       onSuccess: () => {
-        alert("회원가입 성공");
+        toast.success("회원가입 성공");
         createJsonUser({ id: formData.id, nickname: formData.nickname, avatar: null });
         navigate("/sign-in");
       },
       onError: (e) => {
-        alert(e.message);
+        toast.error(e.message);
       },
     });
   }
