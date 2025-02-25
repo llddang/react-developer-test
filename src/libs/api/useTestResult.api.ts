@@ -26,7 +26,7 @@ export function useInfiniteTestResults({ limit = 20 }: { limit: number }) {
       nextPage: number | undefined;
     }> => {
       const response = await jsonServer.get(
-        `/developer-tests?_page=${pageParam}&_limit=${limit}&_expand=user`
+        `/developer-tests?_page=${pageParam}&_limit=${limit}&_expand=user&_sort=id&_order=desc`
       );
       const results = response.data.map((item: TestResultResponseDto) => ({
         id: item.id,
