@@ -8,8 +8,8 @@ import {
 
 /**
  * 진행 상태에 따른 너비 클래스를 반환하는 함수
- * @param progress 현재 진행된 질문 번호 (1-15)
- * @returns Tailwind CSS after:w-[x%] 클래스 문자열
+ * @param {number} progress 현재 진행된 질문 번호 (1-15)
+ * @returns {string} Tailwind CSS after:w-[x%] 클래스 문자열
  */
 export function getAfterWidth(progress: number) {
   const progressMap = [
@@ -40,13 +40,12 @@ export function getAfterWidth(progress: number) {
 /**
  * 사용자의 성향 점수를 기반으로 개발자 유형을 결정하는 함수
  *
- * @param EI - 외향(E)/내향(I) 성향 점수. 양수면 외향(E), 음수면 내향(I)
- * @param TF - 사고(T)/감정(F) 성향 점수. 양수면 사고(T), 음수면 감정(F)
- * @param JP - 판단(J)/인식(P) 성향 점수. 양수면 판단(J), 음수면 인식(P)
- * @returns DeveloperTypeId - 해당하는 개발자 유형 ID
+ * @param {PersonalityTypeScores} answers - 성향 점수 객체 ({E, I, T, F, J, P})
+ * @returns {DeveloperTypeId} 해당하는 개발자 유형 ID
  *
  * @example
- * const devTypeId = calculateDeveloperType(-5, 10, 3); ITJ 반환
+ * const scores = { E: 2, I: 5, T: 10, F: 3, J: 8, P: 4 };
+ * const devTypeId = calculateDeveloperType(scores); // "ITJ" 반환
  */
 export function calculateDeveloperType(answers: PersonalityTypeScores): DeveloperTypeId {
   const type =
@@ -59,8 +58,8 @@ export function calculateDeveloperType(answers: PersonalityTypeScores): Develope
 
 /**
  * 입력된 값이 AnswerType의 유효한 키인지 확인하는 타입 가드 함수
- * @param value 확인할 값
- * @returns 값이 AnswerType의 키인지 여부
+ * @param {unknown} value 확인할 값
+ * @returns {boolean} 값이 AnswerType의 키인지 여부
  */
 export function isValidAnswerTypeId(value: unknown): value is PersonalityTypeId {
   return (
@@ -69,6 +68,11 @@ export function isValidAnswerTypeId(value: unknown): value is PersonalityTypeId 
   );
 }
 
+/**
+ * 입력된 값이 DeveloperType의 유효한 키인지 확인하는 타입 가드 함수
+ * @param {unknown} value - 확인할 값
+ * @returns {boolean} 값이 DeveloperType의 키인지 여부
+ */
 export function isValidDeveloperTypeId(value: unknown): value is DeveloperTypeId {
   return (
     typeof value === "string" && Object.values(DEVELOPER_TYPE).includes(value as DeveloperTypeId)
