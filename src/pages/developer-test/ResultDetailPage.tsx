@@ -37,7 +37,7 @@ export default function ResultDetailPage() {
           <ButtonLink to="/test" size="sm">
             테스트 다시 하기
           </ButtonLink>
-          {result.userId === user.id && <KakaoShareButton />}
+          {result.userId === user.id && <KakaoShareButton type={result.type} />}
         </div>
       </div>
     </div>

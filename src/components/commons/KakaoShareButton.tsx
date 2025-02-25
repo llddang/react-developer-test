@@ -11,7 +11,7 @@ declare global {
 
 const Kakao = window.Kakao;
 
-export default function KakaoShareButton() {
+export default function KakaoShareButton({ type }: { type: string }) {
   const resultUrl = window.location.href;
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function KakaoShareButton() {
     Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
-        title: "나의 개발자 유형",
+        title: `나의 개발자 유형 ${type}`,
         description: "상황에 주어지는 문항에 답하며, 나의 개발 성향을 테스트해보세요!",
         imageUrl:
           "https://cdn.ibos.kr/design/upload_file/BD6140/7f64e1a2e8cdd2dbf922c822742e8bf4_16443761490248.jpg",
