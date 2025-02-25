@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import Button from "@/components/commons/Button";
 import ButtonLink from "@/components/commons/ButtonLink";
 import ResultDetailMatchCard from "@/components/features/developer-test/ResultDetailMatchCard";
 import ResultDetailMyTypeCard from "@/components/features/developer-test/ResultDetailMyTypeCard";
 import { developerTypes } from "@/data/developer-type.data";
 import { useTestResultQuery } from "@/libs/api/useTestResult.api";
 import { useUserStore } from "@/stores/user.store";
+import KakaoShareButton from "@/components/commons/KakaoShareButton";
 
 export default function ResultDetailPage() {
   const { id: testResultId } = useParams();
@@ -45,11 +45,7 @@ export default function ResultDetailPage() {
           <ButtonLink to="/test" size="sm">
             테스트 다시 하기
           </ButtonLink>
-          {result.userId === user.id && (
-            <Button variant="outline" onClick={handleShareLinkClick} size="sm">
-              테스트 공유 하기
-            </Button>
-          )}
+          {result.userId === user.id && <KakaoShareButton />}
         </div>
       </div>
     </div>
