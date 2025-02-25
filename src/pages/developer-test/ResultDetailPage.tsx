@@ -13,14 +13,6 @@ export default function ResultDetailPage() {
   const user = useUserStore().user;
 
   const developerType = developerTypes[result.type];
-  async function handleShareLinkClick() {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      alert("링크가 복사되었습니다.");
-    } catch {
-      alert("failed");
-    }
-  }
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">

@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "@/components/commons/Button";
 import { KAKAO_KEY } from "@/constants/env.constant";
 import { useEffect } from "react";
-const { Kakao } = window;
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
+const Kakao = window.Kakao;
 
 export default function KakaoShareButton() {
   const resultUrl = window.location.href;
