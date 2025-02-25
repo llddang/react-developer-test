@@ -49,7 +49,7 @@
 ## ⚙ 프로젝트 기능 소개
 - **React 라이브러리**로 구성된 프로젝트입니다.
 - **Zustand**를 사용하여 애플리케이션의 유저 정보 상태를 관리합니다.
-- **TanStack Query**의 prefetch 및 useSuspenseQuery, useSusepnseInfiniteQuery를 이용하여 **suspense를 통한 loading**과 **무한스크롤**을 구현하였습니다.
+- **TanStack Query**의 API를 이용하여 **suspense를 통한 loading**과 **무한스크롤**을 구현하였습니다.
 - **Axios Instance**를 활용하여 API 통신을 모듈화하고, **요청/응답 인터셉터**를 통해 공통적인 처리 로직을 적용합니다.
 - **TailwindCSS**를 사용하여 반응형 디자인을 적용하고, **react-router-dom**을 이용해 페이지 간 네비게이션을 처리합니다.
 - 로그인된 유저의 인증 상태에 따라 **ProtectedRoute**를 적용하여 비인가 사용자의 접근을 제한합니다.
