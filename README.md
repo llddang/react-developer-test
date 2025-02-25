@@ -86,6 +86,7 @@ pnpm dev & # unix/linux/mac 에서 background로 실행 (http://localhost:5173/)
 
 ## 🚀 트러블 슈팅
 ### - [json-server에서 관계형 데이터베이스 구축 및 사용 방법](https://llddang-blog.tistory.com/78)
+### - [Zustand와 Axios: React 컴포넌트 외부에서 상태 관리하는 방법](https://llddang-blog.tistory.com/79)
 
 <br/>
 <br/>
