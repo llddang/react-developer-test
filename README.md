@@ -61,6 +61,7 @@
 ## 프로젝트 실행
 ```sh
 # server-json 설정
+
 git clone https://github.com/llddang/json-server-developer-test.git
 cd json-server-developer-test
 pnpm install
@@ -68,6 +69,7 @@ pnpm start & # unix/linux/mac 에서 background로 실행 (http://localhost:4000
 cd ..
 
 # frontend project 실행
+
 git clone https://github.com/llddang/react-developer-test.git
 cd react-developer-test
 cat > .env.development << EOL
@@ -83,7 +85,7 @@ pnpm dev & # unix/linux/mac 에서 background로 실행 (http://localhost:5173/)
 <br/>
 
 ## 🚀 트러블 슈팅
-#### [json-server에서 관계형 데이터베이스 구축 및 사용 방법](https://llddang-blog.tistory.com/78)
+### - [json-server에서 관계형 데이터베이스 구축 및 사용 방법](https://llddang-blog.tistory.com/78)
 
 <br/>
 <br/>
@@ -127,7 +129,11 @@ pnpm dev & # unix/linux/mac 에서 background로 실행 (http://localhost:5173/)
  &emsp; <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel"/>
 
 #### **Frontend** <br/>
- &emsp; <img src="https://img.shields.io/badge/React_18.3.1-087ea4?style=for-the-badge&logo=React&logoColor=white" alt="React"/> <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=white" alt="TypeScript"/> <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&amp;logo=Tailwind CSS&amp;logoColor=white">
-
+ &emsp; <img src="https://img.shields.io/badge/React_18.3.1-087ea4?style=for-the-badge&logo=React&logoColor=white" alt="React"/> 
+ <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=white" alt="TypeScript"/> 
+ <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&amp;logo=Tailwind CSS&amp;logoColor=white" /> 
+ <img src="https://img.shields.io/badge/Tanstack_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white" alt="Tanstack Query" /> 
+ <img src="https://img.shields.io/badge/Zustand-FF9900?style=for-the-badge&logo=zustand" alt="Zustand" />
+ 
 <br/>
 <br/>
